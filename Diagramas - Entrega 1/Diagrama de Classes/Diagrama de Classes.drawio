@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0 (Edition std-2)" version="27.0.6">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0" version="27.0.6">
   <diagram name="Página-1" id="_a5yPlvhvjvMh1GZJRpt">
     <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="9999" pageHeight="9999" math="0" shadow="0">
       <root>
@@ -95,7 +95,11 @@
         </mxCell>
         <mxCell id="JM1ONhOtBjRij3e5JYiU-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;" edge="1" parent="1" source="VGVoNSdA1kauDRPLX8II-2">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="490" y="-520" as="targetPoint" />
+            <mxPoint x="490" y="-450" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="491" y="89" />
+              <mxPoint x="491" y="-450" />
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="VGVoNSdA1kauDRPLX8II-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;Menu&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ iniciarNovoBatalha(): void&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ carregarBatalha(slot: int): Batalha&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ abrirConfiguracoes(): void&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ mostrarRegras(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ criarCombatente(): Combatente&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ sair(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ gerenciarGrupoPersonagens(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ criarGrupo(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ abrirListaGrupos(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ abrirListaInimigos(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ clicaInimigo(inimigo): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
@@ -163,15 +167,18 @@
             <mxPoint x="1650" y="-70" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="JM1ONhOtBjRij3e5JYiU-20" value="" style="endArrow=none;html=1;rounded=0;startFill=0;" edge="1" parent="1">
+        <mxCell id="JM1ONhOtBjRij3e5JYiU-20" value="" style="endArrow=none;html=1;rounded=0;startFill=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="490" y="-520" as="sourcePoint" />
-            <mxPoint x="1720" y="-520" as="targetPoint" />
+            <mxPoint x="490" y="-450" as="sourcePoint" />
+            <mxPoint x="1720" y="-450" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="490" y="-450" />
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="JM1ONhOtBjRij3e5JYiU-23" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.521;entryY=-0.006;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="JM1ONhOtBjRij3e5JYiU-7">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1720" y="-520" as="sourcePoint" />
+            <mxPoint x="1720" y="-450" as="sourcePoint" />
             <mxPoint x="1730" y="-450" as="targetPoint" />
           </mxGeometry>
         </mxCell>

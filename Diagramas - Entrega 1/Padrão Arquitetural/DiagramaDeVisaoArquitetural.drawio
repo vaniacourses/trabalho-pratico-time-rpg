@@ -1,0 +1,144 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.0.6">
+  <diagram name="Página-1" id="Ia4WLMf5UdD5HZQBgZ0k">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="chtYdN5kssD6F8qSMGiq-2" value="View (Flutter UI)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;shadow=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-3" value="Tela Criar Ficha (Personagem/Inimigo)" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-2">
+          <mxGeometry y="40" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-4" value="Tela Configurar Batalha" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-2">
+          <mxGeometry y="70" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-5" value="Tela Gerenciar Grupos" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-2">
+          <mxGeometry y="100" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-6" value="Tela Batalha" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-2">
+          <mxGeometry y="130" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-7" value="UI Framework (Flutter Widgets &amp;amp; State Management)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-2">
+          <mxGeometry y="160" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-8" value="Controller" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;shadow=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="300" y="60" width="200" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-9" value="PersonagemController" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-8">
+          <mxGeometry y="40" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-10" value="InimigoController" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-8">
+          <mxGeometry y="70" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-11" value="BatalhaController" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-8">
+          <mxGeometry y="100" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-12" value="GrupoController" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-8">
+          <mxGeometry y="130" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-13" value="Model (Domain / Application Logic)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;shadow=0;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="540" y="60" width="220" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-14" value="Personagem (Entidade)" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="40" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-15" value="Inimigo (Entidade)" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="70" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-16" value="Habilidade (Entidade/VO)" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="100" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-17" value="Atributo (Entidade/VO)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="130" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-18" value="Item (Entidade/VO)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="160" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-19" value="GrupoPersonagem (Entidade)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="190" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-20" value="GrupoInimigo (Entidade)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="220" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-21" value="Batalha (Entidade)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="250" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-22" value="CenarioBatalha (Entidade/VO)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="280" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-23" value="ServiçoBatalha (Application Service)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-13">
+          <mxGeometry y="310" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-24" value="Repository" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;shadow=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="800" y="60" width="200" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-25" value="PersonagemRepository" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-24">
+          <mxGeometry y="40" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-26" value="InimigoRepository" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-24">
+          <mxGeometry y="70" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-27" value="GrupoRepository" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-24">
+          <mxGeometry y="100" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-28" value="BatalhaRepository" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-24">
+          <mxGeometry y="130" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-29" value="CenarioRepository" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-24">
+          <mxGeometry y="160" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-30" value="Data Persistence" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;shadow=0;fillColor=#e6e6e6;strokeColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="115" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-31" value="SQLite Database" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#bac8d3;strokeColor=#23445d;" vertex="1" parent="chtYdN5kssD6F8qSMGiq-30">
+          <mxGeometry y="40" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-32" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#6c8ebf;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-3" target="chtYdN5kssD6F8qSMGiq-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-37" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#82b366;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-9" target="chtYdN5kssD6F8qSMGiq-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-44" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#d79b00;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-14" target="chtYdN5kssD6F8qSMGiq-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-51" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#b85450;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-26" target="chtYdN5kssD6F8qSMGiq-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1040" y="175" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-60" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#000000;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-21" target="chtYdN5kssD6F8qSMGiq-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-61" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#000000;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-21" target="chtYdN5kssD6F8qSMGiq-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-62" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#d79b00;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-16" target="chtYdN5kssD6F8qSMGiq-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="60" as="sourcePoint" />
+            <mxPoint x="800" y="60" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-63" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#82b366;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-11" target="chtYdN5kssD6F8qSMGiq-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="50" as="sourcePoint" />
+            <mxPoint x="550" y="50" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-64" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#b85450;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-27" target="chtYdN5kssD6F8qSMGiq-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1010" y="240" as="sourcePoint" />
+            <mxPoint x="1050" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="chtYdN5kssD6F8qSMGiq-66" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=light-dark(#39454E,#39454E);entryX=1;entryY=0.331;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=15;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="chtYdN5kssD6F8qSMGiq-31" target="chtYdN5kssD6F8qSMGiq-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="90" as="sourcePoint" />
+            <mxPoint x="1060" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

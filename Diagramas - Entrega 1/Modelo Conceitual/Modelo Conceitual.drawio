@@ -30,7 +30,7 @@
         </mxCell>
         <mxCell id="TZs22Qc4oROo8glKq8BJ-10" value="&lt;br&gt;&lt;div&gt;Combatente&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" collapsed="1" vertex="1" parent="1">
           <mxGeometry x="170" y="10" width="110" height="60" as="geometry">
-            <mxRectangle x="290" y="70" width="170" height="120" as="alternateBounds" />
+            <mxRectangle x="170" y="10" width="170" height="120" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="TZs22Qc4oROo8glKq8BJ-11" value="+ nome: Texto" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="TZs22Qc4oROo8glKq8BJ-10">

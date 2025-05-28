@@ -1,0 +1,369 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.0.9">
+  <diagram name="Página-1" id="dRzNGX5PWt0S2zdsGYkA">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-128" value="Ator" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="150" height="2825" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-129" value="Menu" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="256" y="20" width="150" height="2825" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-130" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-129">
+          <mxGeometry x="70" y="107" width="10" height="2623" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-131" value="PersonagemController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="509" y="20" width="178" height="2825" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-132" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-131">
+          <mxGeometry x="84" y="159" width="10" height="2541" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-133" value="MontaPersonagemController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="805" y="20" width="224" height="2825" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-134" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-133">
+          <mxGeometry x="107" y="260" width="10" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-135" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-133">
+          <mxGeometry x="107" y="572" width="10" height="158" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-136" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-133">
+          <mxGeometry x="107" y="884" width="10" height="156" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-137" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-133">
+          <mxGeometry x="107" y="1633" width="10" height="157" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-138" value="Repository" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1216" y="20" width="150" height="2825" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-139" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-138">
+          <mxGeometry x="70" y="312" width="10" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-140" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-138">
+          <mxGeometry x="70" y="624" width="10" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-141" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-138">
+          <mxGeometry x="70" y="936" width="10" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-142" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-138">
+          <mxGeometry x="70" y="1685" width="10" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-145" value="Personagem" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1490" y="20" width="150" height="2825" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-146" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-145">
+          <mxGeometry x="70" y="2214" width="10" height="378" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-147" value="alt" style="shape=umlFrame;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=#B3B3B3;height=20;width=30" vertex="1" parent="1">
+          <mxGeometry x="84" y="2391" width="1776" height="349" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-148" value="[se validação for bem-sucedida]" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-147">
+          <mxGeometry x="30" width="1746" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-149" value="[se validação falhar]" style="shape=line;dashed=1;whiteSpace=wrap;verticalAlign=top;labelPosition=center;verticalLabelPosition=middle;align=center;strokeColor=#B3B3B3;" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-147">
+          <mxGeometry y="256" width="1776" height="4" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-150" value="opt" style="shape=umlFrame;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=#B3B3B3;height=20;width=30" vertex="1" parent="1">
+          <mxGeometry x="74" y="2037" width="1855" height="713" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-151" value="[O jogador confirma a criação]" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="wNVWfDmeZ_cBfafOIuPa-150">
+          <mxGeometry x="30" width="1825" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-152" value="clicarCriarPersonagem()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-130">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="222" y="127" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-153" value="iniciarCriacaoFicha()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-130" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="475" y="179" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-154" value="listarRacas()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="768" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-155" value="buscarRacas()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-134" target="wNVWfDmeZ_cBfafOIuPa-139">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1114" y="332" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-156" value="listaDeRacas" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-138" target="wNVWfDmeZ_cBfafOIuPa-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1115" y="384" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-157" value="listaDeRacas" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-133" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="769" y="436" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-158" value="exibirOpcoesRaca(listaDeRacas)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="488" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-159" value="selecionarRaca(idRaca)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="353" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-160" value="listarClasses()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-135">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="768" y="592" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-161" value="buscarClasses()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-135" target="wNVWfDmeZ_cBfafOIuPa-140">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1114" y="644" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-162" value="listaDeClasses" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-138" target="wNVWfDmeZ_cBfafOIuPa-135">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1115" y="696" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-163" value="listaDeClasses" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-133" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="769" y="748" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-164" value="exibirOpcoesClasse(listaDeClasses)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="800" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-165" value="selecionarClasse(idClasse)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="353" y="852" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-166" value="listarArquetipos(idRaca, idClasse)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-136">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="768" y="904" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-167" value="buscarArquetiposPorFiltro(idRaca, idClasse)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-136" target="wNVWfDmeZ_cBfafOIuPa-141">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1114" y="956" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-168" value="listaFiltradaArquetipos" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-138" target="wNVWfDmeZ_cBfafOIuPa-136">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1115" y="1008" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-169" value="listaFiltradaArquetipos" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-133" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="769" y="1060" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-170" value="exibirOpcoesArquetipo(listaFiltradaArquetipos)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="1112" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-171" value="selecionarArquetipo(idArquetipo)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="353" y="1164" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-172" value="solicitarNivel()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="1265" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-173" value="definirNivel(nivel)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="353" y="1317" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-174" value="calcularPontosDeAtributo(idRaca, idClasse, idArquetipo, nivel)" style="curved=1;endArrow=block;rounded=0;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="653" y="1418" />
+              <mxPoint x="653" y="1448" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-175" value="exibirTelaDistribuicaoAtributos(pontos, atributosBase)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="1500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-176" value="distribuirAtributos(atributosFinais)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="353" y="1552" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-177" value="listarEquipamentosIniciais(idClasse)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-137">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="768" y="1653" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-178" value="buscarEquipamentosPorFiltro(idClasse)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-137" target="wNVWfDmeZ_cBfafOIuPa-142">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1114" y="1705" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-179" value="listaEquipamentos" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-138" target="wNVWfDmeZ_cBfafOIuPa-137">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1115" y="1757" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-180" value="listaEquipamentos" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-133" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="769" y="1809" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-181" value="exibirOpcoesEquipamento(listaEquipamentos)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="1861" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-182" value="selecionarEquipamentos(equipamentosEscolhidos)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="353" y="1913" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-183" value="solicitarDescricao()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="1965" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-184" value="atribuirDescricao(textoDescricao)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="353" y="2017" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-185" value="finalizarCriacao()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-128" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="353" y="2115" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-186" value="&lt;&lt;create&gt;&gt;(todosDadosColetados)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-145">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1232" y="2234" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-187" value="validaPersonagem()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-146">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1230" y="2319" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-188" value="[status_validacao]" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-146" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1233" y="2371" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-189" value="salvar(p)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1086" y="2518" />
+            </Array>
+            <mxPoint x="1291" y="2518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-190" value="[personagem_salvo]" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" target="wNVWfDmeZ_cBfafOIuPa-132">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1087" y="2570" />
+            </Array>
+            <mxPoint x="1291" y="2570" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-191" value="exibirConfirmacao(&quot;Personagem criado com sucesso!&quot;)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="2622" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-192" value="exibirErro(&quot;Dados inválidos.&quot;)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="wNVWfDmeZ_cBfafOIuPa-132" target="wNVWfDmeZ_cBfafOIuPa-128">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="2720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wNVWfDmeZ_cBfafOIuPa-199" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="1">
+          <mxGeometry x="1286" y="2520" width="10" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

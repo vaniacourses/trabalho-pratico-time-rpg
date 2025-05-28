@@ -1,0 +1,86 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0 (Edition std-2)" version="27.0.9">
+  <diagram name="Página-1" id="-ZPrAj00GO6uvl9wbtSx">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="9999" pageHeight="9999" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0srcnrWXHxkDSpujcTCB-13" value="Usuario" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;size=65;" vertex="1" parent="1">
+          <mxGeometry x="930" y="280" width="35" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-14" value="Sistema" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1211" y="280" width="150" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-15" value="Abrir lista de inimigos" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-13" target="0srcnrWXHxkDSpujcTCB-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1154" y="387" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-16" value="Exibe lista de inimigos" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-14" target="0srcnrWXHxkDSpujcTCB-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1157" y="439" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-17" value="Selecionar inimigo" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-13" target="0srcnrWXHxkDSpujcTCB-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1154" y="491" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-18" value="Adiciona inimigo ao grupo" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-14" target="0srcnrWXHxkDSpujcTCB-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1157" y="543" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-19" value="Criar batalha" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-13" target="0srcnrWXHxkDSpujcTCB-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1154" y="595" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-20" value="Batalha criada com sucesso" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-14" target="0srcnrWXHxkDSpujcTCB-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1157" y="647" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-21" value="Excluir inimigo do grupo" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-13" target="0srcnrWXHxkDSpujcTCB-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1154" y="699" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-22" value="Inimigo removido" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-14" target="0srcnrWXHxkDSpujcTCB-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1157" y="751" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-23" value="Excluir inimigo do sistema" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-13" target="0srcnrWXHxkDSpujcTCB-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1154" y="803" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0srcnrWXHxkDSpujcTCB-24" value="Inimigo excluído com sucesso" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="0srcnrWXHxkDSpujcTCB-14" target="0srcnrWXHxkDSpujcTCB-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1157" y="855" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

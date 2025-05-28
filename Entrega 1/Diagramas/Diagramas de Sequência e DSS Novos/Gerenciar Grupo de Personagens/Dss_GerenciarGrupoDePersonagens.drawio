@@ -1,0 +1,128 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0" version="27.0.9">
+  <diagram name="Page-1" id="2YBvvXClWsGukQMizWep">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-1" value="Menu" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="40" y="108" width="150" height="992" as="geometry" />
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-2" value="PersonagemController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="245" y="108" width="150" height="992" as="geometry" />
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-3" value="Repository" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="445" y="108" width="150" height="992" as="geometry" />
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-4" value="BatalhaController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="830" y="108" width="150" height="992" as="geometry" />
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-5" value="1:abrirListaPersonagens()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-1" target="jgXDDqWuCSClTd5V1PVB-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="226" y="215" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-6" value="1:abrirListaPersonagens()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-2" target="jgXDDqWuCSClTd5V1PVB-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="429" y="267" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-7" value="list&lt;Personagem&gt;" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-3" target="jgXDDqWuCSClTd5V1PVB-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="432" y="319" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-8" value="list&lt;Personagem&gt;" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-2" target="jgXDDqWuCSClTd5V1PVB-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="229" y="371" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-9" value="2:clicaPersonagem(Personagem)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-1" target="jgXDDqWuCSClTd5V1PVB-2">
+          <mxGeometry x="-0.0027" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="226" y="423" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-10" value="3:adicionarCombatente(Personagem)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-2" target="jgXDDqWuCSClTd5V1PVB-19">
+          <mxGeometry x="0.003" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="429" y="475" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-11" value="Confirmação" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=horizontal;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-3" target="jgXDDqWuCSClTd5V1PVB-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="432" y="527" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-12" value="Confirmação" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-2" target="jgXDDqWuCSClTd5V1PVB-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="229" y="579" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-13" value="4:criarBatalha(grupo)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-1" target="jgXDDqWuCSClTd5V1PVB-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="426" y="631" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-14" value="5:removerPersonagem(id)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-1" target="jgXDDqWuCSClTd5V1PVB-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="226" y="735" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-15" value="6:deletarPersonagem(id)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-2" target="jgXDDqWuCSClTd5V1PVB-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="429" y="787" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-16" value="confirmação" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-3" target="jgXDDqWuCSClTd5V1PVB-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="432" y="839" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-17" value="confirmação" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-2" target="jgXDDqWuCSClTd5V1PVB-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="229" y="891" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-18" value="7:excluirCombatente(Personagem)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="jgXDDqWuCSClTd5V1PVB-1" target="jgXDDqWuCSClTd5V1PVB-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="426" y="943" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-19" value="Grupo" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="640" y="108" width="150" height="992" as="geometry" />
+        </mxCell>
+        <mxCell id="jgXDDqWuCSClTd5V1PVB-21" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;&lt;b&gt;DIAGRAMA DE SEQUÊNCIA&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="120" y="41" width="340" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

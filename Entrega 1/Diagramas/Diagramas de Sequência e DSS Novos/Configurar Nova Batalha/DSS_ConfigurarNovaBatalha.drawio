@@ -1,0 +1,145 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0" version="27.0.9">
+  <diagram name="Página-1" id="Q3mJYxscL0Z3PYjs_Gnk">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-1" value="DSS - Configurar Nova Batalha" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="230" y="250" width="350" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-2" value="Usuario" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="290" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-3" value="" style="endArrow=none;dashed=1;endFill=0;endSize=12;html=1;rounded=0;startFill=0;" edge="1" parent="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="215" y="380" as="sourcePoint" />
+            <mxPoint x="215" y="850" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="215" y="490" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-4" value="5: Iniciar &quot;seleção de cenário&quot;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="298" y="700" width="165" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-5" value="" style="endArrow=classic;endFill=1;endSize=12;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="220" y="734.5" as="sourcePoint" />
+            <mxPoint x="520" y="734.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-6" value=":Sistema" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="460" y="320" width="130" height="530" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-7" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="PKTz6iOF8lkaM4SCAtVA-6">
+          <mxGeometry x="60" y="394" width="10" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-8" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="PKTz6iOF8lkaM4SCAtVA-6">
+          <mxGeometry x="60" y="474" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-9" value="" style="endArrow=classic;endFill=1;endSize=12;html=1;rounded=0;" edge="1" parent="PKTz6iOF8lkaM4SCAtVA-6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-240" y="480" as="sourcePoint" />
+            <mxPoint x="60" y="480.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-10" value="&amp;lt;&amp;lt;cenário selecionado&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="PKTz6iOF8lkaM4SCAtVA-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60.25" y="510" as="sourcePoint" />
+            <mxPoint x="-235.25" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-11" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="210" y="715" width="10" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-12" value="&amp;lt;&amp;lt;mostra ícones dos cenários&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="515" y="760" as="sourcePoint" />
+            <mxPoint x="219.5" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-13" value="6: escolhe cenário ()" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="780" width="165" height="17.5" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-14" value="1: Iniciar &quot;seleção de grupo de personagens&quot;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="380" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-15" value="" style="endArrow=classic;endFill=1;endSize=12;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="220" y="414.5" as="sourcePoint" />
+            <mxPoint x="520" y="414.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-16" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="520" y="394" width="10" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-17" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="520" y="474" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-18" value="" style="endArrow=classic;endFill=1;endSize=12;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="220" y="480" as="sourcePoint" />
+            <mxPoint x="520" y="480.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-19" value="&amp;lt;&amp;lt;grupo de personagens selecionado&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520.25" y="510" as="sourcePoint" />
+            <mxPoint x="224.75" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-20" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="210" y="395" width="10" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-21" value="&amp;lt;&amp;lt;mostra os grupos de personagens salvos&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="515" y="440" as="sourcePoint" />
+            <mxPoint x="219.5" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-22" value="2: escolhe grupo ()" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="460" width="165" height="17.5" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-23" value="3: Iniciar &quot;seleção de grupo de inimigos&quot;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="250" y="540" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-24" value="" style="endArrow=classic;endFill=1;endSize=12;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="220" y="574.5" as="sourcePoint" />
+            <mxPoint x="520" y="574.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-25" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="520" y="554" width="10" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-26" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="520" y="634" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-27" value="" style="endArrow=classic;endFill=1;endSize=12;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="220" y="640" as="sourcePoint" />
+            <mxPoint x="520" y="640.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-28" value="&amp;lt;&amp;lt;grupo de inimigos selecionado&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520.25" y="670" as="sourcePoint" />
+            <mxPoint x="224.75" y="670" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-29" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="210" y="555" width="10" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-30" value="&amp;lt;&amp;lt;mostra os grupos de inimigos salvos&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="515" y="600" as="sourcePoint" />
+            <mxPoint x="219.5" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKTz6iOF8lkaM4SCAtVA-31" value="4: escolhe grupo ()" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="620" width="165" height="17.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

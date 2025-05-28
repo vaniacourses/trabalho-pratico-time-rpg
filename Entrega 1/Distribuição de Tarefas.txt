@@ -1,0 +1,9 @@
+Frederico Antunes: 1 Diagrama de Sequência, 1 DSS, Casos de Uso, Modelo Conceitual, Diagrama de Classes
+
+Gabriel Gomes: 1 Diagrama de Sequência, 1 DSS, Restrições Arquiteturais, Objetivos Arquiteturais, Requisitos Arquiteturais, Diagrama de Classes
+
+Lucas Oliveira: 1 Diagrama de Sequência, 1 DSS, Casos de Uso, Diagrama de Classes, Justificativa de Arquitetura
+
+Pedro Umpierre: 1 Diagrama de Sequência, 1 DSS, Justificativa de Arquitetura, Diagrama de Visão Arquitetural, Diagrama de Classes
+
+Ramon Pedro Pereira Santos: 1 Diagrama de Sequência, 1 DSS, Escopo, Contrato de Operação, Diagrama de Classes, 

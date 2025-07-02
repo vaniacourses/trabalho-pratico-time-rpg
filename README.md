@@ -64,7 +64,7 @@ O sistema será implementado com foco em compatibilidade multiplataforma. As dec
 
 ## 👥 Equipe
 
-- **Alunos:** Gabriel Gomes, Ramon Pedro, Pedro Umpierre, Lucas Vitorino, Frederico Antunes, Willian Benevides
+- **Alunos:** Gabriel Gomes, Ramon Pedro, Pedro Umpierre, Lucas Vitorino, Frederico Antunes
 - **Disciplina:** Projeto de Software
 - **Professor(a):** Vania de Oliveira Neves
 - **Instituição:** Universidade Federal Fluminense

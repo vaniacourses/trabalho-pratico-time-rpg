@@ -47,11 +47,8 @@ class MyAppProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // Dependências Globais
         Provider<Uuid>(create: (_) => const Uuid()),
         Provider<DatabaseHelper>(create: (_) => DatabaseHelper.instance),
-
-        // Repositórios
         ProxyProvider<DatabaseHelper, IRacaRepository>(
           update: (_, db, __) => RacaRepositoryImpl(dbHelper: db),
         ),
@@ -76,9 +73,6 @@ class MyAppProviders extends StatelessWidget {
             habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
           ),
         ),
-
-        // Factories - Aqui precisamos de uma solução para prover múltiplas implementações de IFichaFactory
-        // Por agora, vamos prover as duas separadamente
         Provider<PersonagemFactoryImpl>(
           create: (ctx) => PersonagemFactoryImpl(
             racaRepository: ctx.read(),
@@ -95,8 +89,6 @@ class MyAppProviders extends StatelessWidget {
             uuid: ctx.read(),
           ),
         ),
-
-        // ViewModels
         ChangeNotifierProvider(
           create: (ctx) =>
               RacasViewModel(racaRepository: ctx.read(), uuid: ctx.read()),
@@ -120,6 +112,14 @@ class MyAppProviders extends StatelessWidget {
               PersonagensViewModel(personagemRepository: ctx.read()),
         ),
         ChangeNotifierProvider(
+          create: (ctx) => InimigosViewModel(
+            inimigoRepository: ctx.read(),
+            inimigoFactory: ctx.read(),
+            armaRepository: ctx.read(),
+            habilidadeRepository: ctx.read(),
+          ),
+        ),
+        ChangeNotifierProvider(
           create: (ctx) => CriarPersonagemViewModel(
             racaRepository: ctx.read(),
             classeRepository: ctx.read(),
@@ -127,13 +127,6 @@ class MyAppProviders extends StatelessWidget {
             habilidadeRepository: ctx.read(),
             personagemRepository: ctx.read(),
             fichaFactory: ctx.read<PersonagemFactoryImpl>(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => InimigosViewModel(
-            inimigoRepository: ctx.read(),
-            // ATENÇÃO: Aqui usamos a factory concreta de Inimigo
-            fichaFactory: ctx.read<InimigoFactoryImpl>(),
           ),
         ),
       ],
@@ -157,55 +150,120 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
+// MainPage agora é StatefulWidget para gerenciar seu próprio TabController
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
   @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
+  late final TabController _mainTabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _mainTabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _mainTabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('RPG Manager'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.group), text: 'Fichas'),
-              Tab(icon: Icon(Icons.settings), text: 'Gerenciamento'),
-            ],
-          ),
-        ),
-        body: const TabBarView(
-          children: [
-            FichasTabPage(),
-            GerenciamentoGeralPage(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('RPG Manager'),
+        bottom: TabBar(
+          controller: _mainTabController,
+          tabs: const [
+            Tab(icon: Icon(Icons.group), text: 'Fichas'),
+            Tab(icon: Icon(Icons.settings), text: 'Gerenciamento'),
           ],
         ),
+      ),
+      body: TabBarView(
+        controller: _mainTabController,
+        children: [
+          // Passamos o TabController da MainPage para a FichasTabPage
+          FichasTabPage(mainTabController: _mainTabController),
+          const GerenciamentoGeralPage(),
+        ],
       ),
     );
   }
 }
 
-class FichasTabPage extends StatelessWidget {
-  const FichasTabPage({super.key});
+// FichasTabPage agora também é StatefulWidget para ter seu TabController
+class FichasTabPage extends StatefulWidget {
+  final TabController mainTabController;
+  const FichasTabPage({super.key, required this.mainTabController});
+
+  @override
+  State<FichasTabPage> createState() => _FichasTabPageState();
+}
+
+class _FichasTabPageState extends State<FichasTabPage>
+    with TickerProviderStateMixin {
+  late final TabController _fichasTabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _fichasTabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _fichasTabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Este TabController é para as sub-abas (Personagens, Inimigos)
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.person), text: 'Personagens'),
-              Tab(icon: Icon(Icons.adb), text: 'Inimigos'),
-            ],
-          ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: TabBar(
+          controller: _fichasTabController,
+          tabs: const [
+            Tab(text: 'PERSONAGENS'),
+            Tab(text: 'INIMIGOS'),
+          ],
         ),
-        body: const TabBarView(
-          children: [GerenciarPersonagensPage(), GerenciarInimigosPage()],
-        ),
+      ),
+      body: TabBarView(
+        controller: _fichasTabController,
+        children: const [GerenciarPersonagensPage(), GerenciarInimigosPage()],
+      ),
+      // O FAB agora usa ambos os controllers para decidir o que fazer
+      floatingActionButton: FloatingActionButton(
+        // CORREÇÃO: heroTag único para evitar conflito se outra tela tiver um FAB
+        heroTag: 'fichas_fab',
+        child: const Icon(Icons.add),
+        onPressed: () {
+          // Verifica se a aba principal é "Fichas"
+          if (widget.mainTabController.index == 0) {
+            // Verifica qual sub-aba ("Personagens" ou "Inimigos") está ativa
+            if (_fichasTabController.index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const CriarPersonagemPage()),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const CriarEditarInimigoPage(),
+                ),
+              );
+            }
+          }
+        },
       ),
     );
   }
@@ -216,91 +274,42 @@ class GerenciamentoGeralPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Função para navegar para a página de criação correta
-    void navigateToCreate(BuildContext context, String type) {
-      if (type == 'personagem') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const CriarPersonagemPage()),
-        );
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const CriarEditarInimigoPage()),
-        );
-      }
-    }
-
-    return Scaffold(
-      body: ListView(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.shield),
-            title: const Text('Gerenciar Raças'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const GerenciarRacasPage()),
-            ),
+    // Esta página não precisa de um FAB, pois a criação é feita na outra aba.
+    return ListView(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.shield),
+          title: const Text('Gerenciar Raças'),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const GerenciarRacasPage()),
           ),
-          ListTile(
-            leading: const Icon(Icons.star),
-            title: const Text('Gerenciar Classes'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const GerenciarClassesPage()),
-            ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.star),
+          title: const Text('Gerenciar Classes'),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const GerenciarClassesPage()),
           ),
-          ListTile(
-            leading: const Icon(Icons.hardware),
-            title: const Text('Gerenciar Armas'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const GerenciarArmasPage()),
-            ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.hardware),
+          title: const Text('Gerenciar Armas'),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const GerenciarArmasPage()),
           ),
-          ListTile(
-            leading: const Icon(Icons.flash_on),
-            title: const Text('Gerenciar Habilidades'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => const GerenciarHabilidadesPage(),
-              ),
-            ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.flash_on),
+          title: const Text('Gerenciar Habilidades'),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const GerenciarHabilidadesPage()),
           ),
-        ],
-      ),
-      // O botão de "Adicionar" agora mostra um menu de opções
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (ctx) {
-              return Wrap(
-                children: <Widget>[
-                  ListTile(
-                    leading: const Icon(Icons.person_add),
-                    title: const Text('Criar Ficha de Personagem'),
-                    onTap: () {
-                      Navigator.pop(ctx); // Fecha o BottomSheet
-                      navigateToCreate(context, 'personagem');
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.adb),
-                    title: const Text('Criar Ficha de Inimigo'),
-                    onTap: () {
-                      Navigator.pop(ctx); // Fecha o BottomSheet
-                      navigateToCreate(context, 'inimigo');
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
+        ),
+      ],
     );
   }
 }

@@ -24,15 +24,17 @@ class InimigoFactoryImpl implements IFichaFactory {
 
   @override
   Future<Inimigo> criarInimigo(InimigoParams params) async {
+    // Busca as dependências opcionais
     Arma? arma;
-    if (params.armaId != null) {
+    if (params.armaId != null && params.armaId!.isNotEmpty) {
       arma = await _armaRepository.getById(params.armaId!);
     }
     Arma? armadura;
-    if (params.armaduraId != null) {
+    if (params.armaduraId != null && params.armaduraId!.isNotEmpty) {
       armadura = await _armaRepository.getById(params.armaduraId!);
     }
 
+    // Busca a lista de habilidades
     List<Habilidade> habilidades = [];
     for (String id in params.habilidadesIds) {
       final habilidade = await _habilidadeRepository.getById(id);
@@ -58,9 +60,8 @@ class InimigoFactoryImpl implements IFichaFactory {
     );
   }
 
-  // CORREÇÃO: Adicionada a assinatura correta do método que não é implementado aqui.
   @override
   Future<Personagem> criarPersonagem(PersonagemParams params, {String? id}) {
-    throw UnimplementedError('Esta factory só cria inimigos. Use PersonagemFactoryImpl para personagens.');
+    throw UnimplementedError('Esta factory só cria inimigos.');
   }
 }

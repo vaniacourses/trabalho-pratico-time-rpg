@@ -1,14 +1,14 @@
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 
-/// Agrupa todos os parâmetros necessários para criar um novo inimigo.
 class InimigoParams {
   final String nome;
   final int nivel;
-  final String tipo; // Ex: "Besta", "Morto-Vivo"
+  final String tipo;
   final AtributosBase atributos;
-  final String? armaId; // ID da arma principal (opcional)
-  final String? armaduraId; // ID da armadura (opcional)
-  final List<String> habilidadesIds; // IDs das habilidades que ele terá
+  // ATUALIZAÇÃO: Campos adicionados
+  final String? armaId;
+  final String? armaduraId;
+  final List<String> habilidadesIds;
 
   InimigoParams({
     required this.nome,
@@ -17,6 +17,6 @@ class InimigoParams {
     required this.atributos,
     this.armaId,
     this.armaduraId,
-    this.habilidadesIds = const [],
+    this.habilidadesIds = const [], // Garante que seja sempre uma lista
   });
 }

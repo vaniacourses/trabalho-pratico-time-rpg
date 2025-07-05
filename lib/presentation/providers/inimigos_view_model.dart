@@ -1,18 +1,29 @@
 import 'package:flutter/foundation.dart';
+import 'package:trabalho_rpg/data/factories/inimigo_factory_impl.dart';
+import 'package:trabalho_rpg/domain/entities/arma.dart';
+import 'package:trabalho_rpg/domain/entities/habilidade.dart';
 import 'package:trabalho_rpg/domain/entities/inimigo.dart';
 import 'package:trabalho_rpg/domain/factories/ficha_factory.dart';
 import 'package:trabalho_rpg/domain/factories/inimigo_params.dart';
+import 'package:trabalho_rpg/domain/repositories/i_arma_repository.dart';
+import 'package:trabalho_rpg/domain/repositories/i_habilidade_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_inimigo_repository.dart';
 
 class InimigosViewModel extends ChangeNotifier {
   final IInimigoRepository _inimigoRepository;
-  final IFichaFactory _fichaFactory;
+  final IArmaRepository _armaRepository;
+  final IHabilidadeRepository _habilidadeRepository;
+  final InimigoFactoryImpl _inimigoFactory;
 
   InimigosViewModel({
     required IInimigoRepository inimigoRepository,
-    required IFichaFactory fichaFactory,
+    required IArmaRepository armaRepository,
+    required IHabilidadeRepository habilidadeRepository,
+    required InimigoFactoryImpl inimigoFactory,
   })  : _inimigoRepository = inimigoRepository,
-        _fichaFactory = fichaFactory;
+       _armaRepository = armaRepository,
+       _habilidadeRepository = habilidadeRepository,
+       _inimigoFactory = inimigoFactory;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -20,18 +31,42 @@ class InimigosViewModel extends ChangeNotifier {
   List<Inimigo> _inimigos = [];
   List<Inimigo> get inimigos => _inimigos;
 
+  // ATUALIZAÇÃO: Listas de opções para a UI
+  List<Arma> _armasDisponiveis = [];
+  List<Arma> get armasDisponiveis => _armasDisponiveis;
+
+  List<Habilidade> _habilidadesDisponiveis = [];
+  List<Habilidade> get habilidadesDisponiveis => _habilidadesDisponiveis;
+
   String? _error;
   String? get error => _error;
 
   Future<void> fetchInimigos() async {
     _isLoading = true;
-    _error = null;
     notifyListeners();
-
     try {
       _inimigos = await _inimigoRepository.getAll();
     } catch (e) {
       _error = "Falha ao buscar inimigos: ${e.toString()}";
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+  
+  // ATUALIZAÇÃO: Método para carregar as opções para a tela de criação
+  Future<void> carregarOpcoes() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      final results = await Future.wait([
+        _armaRepository.getAll(),
+        _habilidadeRepository.getAll(),
+      ]);
+      _armasDisponiveis = results[0] as List<Arma>;
+      _habilidadesDisponiveis = results[1] as List<Habilidade>;
+    } catch (e) {
+      _error = "Falha ao carregar opções: ${e.toString()}";
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -42,13 +77,8 @@ class InimigosViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     try {
-      // Usamos a factory para criar a instância.
-      // Em uma implementação real, o InimigoFactory seria usado aqui.
-      // Por simplicidade, vamos criar direto no repositório.
-      // Esta lógica pode ser movida para a factory depois.
-      final inimigo = await _fichaFactory.criarInimigo(params);
+      final inimigo = await _inimigoFactory.criarInimigo(params);
       
-      // Se for edição, mantemos o ID original.
       final inimigoParaSalvar = Inimigo(
         id: id ?? inimigo.id,
         nome: inimigo.nome,
@@ -86,7 +116,6 @@ class InimigosViewModel extends ChangeNotifier {
 
   Future<void> clonarInimigo(Inimigo inimigo) async {
     try {
-      // Usa o padrão Prototype!
       final clone = inimigo.clone();
       await _inimigoRepository.save(clone);
       await fetchInimigos();

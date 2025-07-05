@@ -1,17 +1,22 @@
+import 'package:trabalho_rpg/domain/entities/combatente.dart';
+
 abstract class Habilidade {
+  final String id;
   final String nome;
   final String descricao;
-  final int custo; // Custo de mana, energia, etc.
+  final int custo;
   final int nivelExigido;
 
   Habilidade({
+    required this.id,
     required this.nome,
     required this.descricao,
     required this.custo,
     required this.nivelExigido,
   });
 
-  // Método abstrato para o Strategy
-  // void execute({required Combatente usuario, required Combatente alvo});
-  // Nota: Deixaremos o método comentado por enquanto, pois a classe Combatente ainda será criada.
+  void execute({required Combatente autor, required Combatente alvo});
+
+  // ATUALIZAÇÃO: Adicionado método para persistência polimórfica.
+  Map<String, dynamic> toPersistenceMap();
 }

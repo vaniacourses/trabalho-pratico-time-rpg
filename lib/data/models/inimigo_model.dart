@@ -1,46 +1,37 @@
+import 'package:trabalho_rpg/data/models/arma_model.dart';
 import 'package:trabalho_rpg/domain/entities/arma.dart';
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
-import 'package:trabalho_rpg/domain/entities/personagem.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
-import 'classe_personagem_model.dart';
-import 'raca_model.dart';
+import 'package:trabalho_rpg/domain/entities/inimigo.dart';
 
-class PersonagemModel extends Personagem {
-  PersonagemModel({
+class InimigoModel extends Inimigo {
+  InimigoModel({
     required super.id,
     required super.nome,
     required super.nivel,
     required super.vidaMax,
     required super.classeArmadura,
     required super.atributosBase,
-    required super.raca,
-    required super.classe,
-    // Adicionamos os campos que agora serão persistidos
+    required super.habilidadesPreparadas,
+    required super.tipo,
     super.arma,
     super.armadura,
-    required super.habilidadesConhecidas,
-    required super.habilidadesPreparadas,
-    required super.equipamentos,
   });
 
-  factory PersonagemModel.fromMap(
+  /// Construtor de fábrica para criar uma instância a partir de um Map do BD.
+  factory InimigoModel.fromMap(
     Map<String, dynamic> map, {
-    required RacaModel raca,
-    required ClassePersonagemModel classe,
-    // Os campos opcionais agora são passados aqui
     Arma? arma,
     Arma? armadura,
-    // As listas serão preenchidas pelo repositório após a busca principal
-    List<Habilidade> habilidadesConhecidas = const [],
-    List<Habilidade> habilidadesPreparadas = const [],
-    Map<String, Arma> equipamentos = const {},
+    List<Habilidade> habilidades = const [],
   }) {
-    return PersonagemModel(
+    return InimigoModel(
       id: map['id'],
       nome: map['nome'],
       nivel: map['nivel'],
       vidaMax: map['vidaMax'],
       classeArmadura: map['classeArmadura'],
+      tipo: map['tipo'],
       atributosBase: AtributosBase(
         forca: map['forca'],
         destreza: map['destreza'],
@@ -49,16 +40,13 @@ class PersonagemModel extends Personagem {
         sabedoria: map['sabedoria'],
         carisma: map['carisma'],
       ),
-      raca: raca,
-      classe: classe,
+      habilidadesPreparadas: habilidades,
       arma: arma,
       armadura: armadura,
-      habilidadesConhecidas: habilidadesConhecidas,
-      habilidadesPreparadas: habilidadesPreparadas,
-      equipamentos: equipamentos,
     );
   }
 
+  /// Método para converter a instância para um Map para o BD.
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -66,12 +54,9 @@ class PersonagemModel extends Personagem {
       'nivel': nivel,
       'vidaMax': vidaMax,
       'classeArmadura': classeArmadura,
-      'racaId': raca.id,
-      'classeId': classe.id,
-      // Campos de chave estrangeira atualizados (podem ser nulos)
+      'tipo': tipo,
       'armaId': arma?.id,
       'armaduraId': armadura?.id,
-      // Atributos
       'forca': atributosBase.forca,
       'destreza': atributosBase.destreza,
       'constituicao': atributosBase.constituicao,

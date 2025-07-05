@@ -4,6 +4,8 @@ import 'package:trabalho_rpg/data/exceptions/datasource_exception.dart';
 import 'package:trabalho_rpg/data/models/habilidades/habilidade_de_cura_model.dart';
 import 'package:trabalho_rpg/data/models/habilidades/habilidade_de_dano_model.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
+import 'package:trabalho_rpg/domain/entities/habilidade_de_cura.dart';
+import 'package:trabalho_rpg/domain/entities/habilidade_de_dano.dart';
 import 'package:trabalho_rpg/domain/repositories/i_habilidade_repository.dart';
 
 class HabilidadeRepositoryImpl implements IHabilidadeRepository {
@@ -17,13 +19,44 @@ class HabilidadeRepositoryImpl implements IHabilidadeRepository {
     try {
       final db = await _dbHelper.database;
       
-      // ATUALIZAÇÃO: A lógica agora é muito mais simples!
-      // A própria habilidade sabe como ser convertida para o banco.
-      // Não precisamos mais de 'if/is'.
-      await db.insert('habilidades', habilidade.toPersistenceMap(),
+      // REATORADO: A lógica de conversão agora está aqui.
+      // O repositório identifica o tipo da entidade e cria o Map correto.
+      Map<String, dynamic> persistenceMap;
+
+      if (habilidade is HabilidadeDeDano) {
+        // Se for uma habilidade de dano, cria o mapa com seus campos específicos.
+        persistenceMap = {
+          'id': habilidade.id,
+          'nome': habilidade.nome,
+          'descricao': habilidade.descricao,
+          'custo': habilidade.custo,
+          'nivelExigido': habilidade.nivelExigido,
+          'categoria': 'dano', // <-- O "discriminador"
+          'danoBase': habilidade.danoBase,
+          'curaBase': null, // Garante que o campo não usado seja nulo
+        };
+      } else if (habilidade is HabilidadeDeCura) {
+        // Se for uma habilidade de cura, cria o mapa com seus campos.
+        persistenceMap = {
+          'id': habilidade.id,
+          'nome': habilidade.nome,
+          'descricao': habilidade.descricao,
+          'custo': habilidade.custo,
+          'nivelExigido': habilidade.nivelExigido,
+          'categoria': 'cura', // <-- O "discriminador"
+          'danoBase': null,
+          'curaBase': habilidade.curaBase,
+        };
+      } else {
+        // Lança um erro se receber um tipo de Habilidade desconhecido.
+        throw ArgumentError('Tipo de Habilidade não suportado para persistência: ${habilidade.runtimeType}');
+      }
+
+      await db.insert('habilidades', persistenceMap,
           conflictAlgorithm: ConflictAlgorithm.replace);
 
     } catch (e) {
+      // O erro do ArgumentError acima também será capturado e encapsulado aqui.
       throw DatasourceException(
           message: 'Falha ao salvar a habilidade.', originalException: e);
     }

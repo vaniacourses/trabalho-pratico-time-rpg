@@ -11,7 +11,7 @@ abstract class HabilidadeModel extends Habilidade {
   });
 
   // Implementação base que lida com os campos comuns.
-  @override
+  
   Map<String, dynamic> toPersistenceMap() {
     return {
       'id': id,

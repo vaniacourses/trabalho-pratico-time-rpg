@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:trabalho_rpg/domain/entities/classe_personagem.dart';
+// ADICIONADO: Import dos enums para popular os menus de seleção.
+import 'package:trabalho_rpg/domain/entities/enums/proficiencias.dart';
 import 'package:trabalho_rpg/presentation/providers/classes_view_model.dart';
 
 class AddEditClasseDialog extends StatefulWidget {
@@ -16,22 +17,26 @@ class AddEditClasseDialog extends StatefulWidget {
 class _AddEditClasseDialogState extends State<AddEditClasseDialog> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
-  late final TextEditingController _profArmaController;
-  late final TextEditingController _profArmaduraController;
+  
+  // MUDANÇA: Substituímos os controllers de texto por variáveis de estado para os enums.
+  ProficienciaArma? _proficienciaArmaSelecionada;
+  ProficienciaArmadura? _proficienciaArmaduraSelecionada;
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.classe?.nome ?? '');
-    _profArmaController = TextEditingController(text: widget.classe?.proficienciaArma.toString() ?? '0');
-    _profArmaduraController = TextEditingController(text: widget.classe?.proficienciaArmadura.toString() ?? '0');
+    
+    // MUDANÇA: Se estiver editando, pré-selecionamos os valores do enum.
+    if (widget.classe != null) {
+      _proficienciaArmaSelecionada = widget.classe!.proficienciaArma;
+      _proficienciaArmaduraSelecionada = widget.classe!.proficienciaArmadura;
+    }
   }
 
   @override
   void dispose() {
     _nameController.dispose();
-    _profArmaController.dispose();
-    _profArmaduraController.dispose();
     super.dispose();
   }
 
@@ -40,8 +45,10 @@ class _AddEditClasseDialogState extends State<AddEditClasseDialog> {
       Provider.of<ClassesViewModel>(context, listen: false).saveClasse(
         id: widget.classe?.id,
         nome: _nameController.text,
-        profArma: int.tryParse(_profArmaController.text) ?? 0,
-        profArmadura: int.tryParse(_profArmaduraController.text) ?? 0,
+        // MUDANÇA: Passamos os valores dos enums selecionados diretamente.
+        // O "!" é seguro aqui pois o validator do formulário garante que não são nulos.
+        profArma: _proficienciaArmaSelecionada!,
+        profArmadura: _proficienciaArmaduraSelecionada!,
       );
       Navigator.of(context).pop();
     }
@@ -69,18 +76,44 @@ class _AddEditClasseDialogState extends State<AddEditClasseDialog> {
                 },
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _profArmaController,
+
+              // MUDANÇA: TextFormField substituído por DropdownButtonFormField.
+              DropdownButtonFormField<ProficienciaArma>(
+                value: _proficienciaArmaSelecionada,
                 decoration: const InputDecoration(labelText: 'Proficiência com Arma'),
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                // Gera os itens do menu a partir dos valores do enum.
+                items: ProficienciaArma.values.map((proficiencia) {
+                  return DropdownMenuItem(
+                    value: proficiencia,
+                    child: Text(proficiencia.name), // .name converte o enum para String (ex: "Marcial")
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _proficienciaArmaSelecionada = value;
+                  });
+                },
+                validator: (value) => value == null ? 'Selecione uma opção' : null,
               ),
+
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _profArmaduraController,
+
+              // MUDANÇA: O mesmo para a proficiência com armadura.
+              DropdownButtonFormField<ProficienciaArmadura>(
+                value: _proficienciaArmaduraSelecionada,
                 decoration: const InputDecoration(labelText: 'Proficiência com Armadura'),
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                items: ProficienciaArmadura.values.map((proficiencia) {
+                  return DropdownMenuItem(
+                    value: proficiencia,
+                    child: Text(proficiencia.name),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _proficienciaArmaduraSelecionada = value;
+                  });
+                },
+                validator: (value) => value == null ? 'Selecione uma opção' : null,
               ),
             ],
           ),

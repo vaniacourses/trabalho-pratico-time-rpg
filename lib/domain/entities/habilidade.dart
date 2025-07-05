@@ -18,6 +18,4 @@ abstract class Habilidade {
 
   // ATUALIZAÇÃO: O tipo do alvo agora é a interface genérica 'AlvoDeAcao'.
   void execute({required Combatente autor, required AlvoDeAcao alvo});
-
-  Map<String, dynamic> toPersistenceMap();
 }

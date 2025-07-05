@@ -13,6 +13,7 @@ import 'package:trabalho_rpg/data/repositories/raca_repository_impl.dart';
 import 'package:trabalho_rpg/domain/entities/arma.dart';
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 import 'package:trabalho_rpg/domain/entities/classe_personagem.dart';
+import 'package:trabalho_rpg/domain/entities/enums/proficiencias.dart';
 import 'package:trabalho_rpg/domain/entities/grupo.dart';
 import 'package:trabalho_rpg/domain/entities/inimigo.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
@@ -52,7 +53,7 @@ class CrudTestRunner {
 
     print('\n[PASSO 1/5] Criando dados de pré-requisito...');
     final racaHumano = Raca(id: uuid.v4(), nome: 'Humano', modificadoresDeAtributo: {'carisma': 1, 'inteligencia': 1});
-    final classeGuerreiro = ClassePersonagem(id: uuid.v4(), nome: 'Guerreiro', proficienciaArmadura: 5, proficienciaArma: 3, habilidadesDisponiveis: []);
+    final classeGuerreiro = ClassePersonagem(id: uuid.v4(), nome: 'Guerreiro', proficienciaArmadura: ProficienciaArmadura.Pesada, proficienciaArma: ProficienciaArma.Marcial, habilidadesDisponiveis: []);
     final espadaLonga = Arma(id: uuid.v4(), nome: 'Espada Longa', danoBase: 8);
     final escudoDeAco = Arma(id: uuid.v4(), nome: 'Escudo de Aço', danoBase: 2);
     final adaga = Arma(id: uuid.v4(), nome: 'Adaga', danoBase: 4);
@@ -182,7 +183,7 @@ class CrudTestRunner {
     
     print('\n[PASSO 1/4] Criando personagens para o grupo...');
     final racaAnao = Raca(id: uuid.v4(), nome: 'Anão', modificadoresDeAtributo: {'constituicao': 2});
-    final classeClerigo = ClassePersonagem(id: uuid.v4(), nome: 'Clérigo', proficienciaArmadura: 6, proficienciaArma: 2, habilidadesDisponiveis: []);
+    final classeClerigo = ClassePersonagem(id: uuid.v4(), nome: 'Clérigo', proficienciaArmadura: ProficienciaArmadura.Pesada, proficienciaArma: ProficienciaArma.Simples, habilidadesDisponiveis: []);
     await racaRepo.save(racaAnao);
     await classeRepo.save(classeClerigo);
 
@@ -285,7 +286,7 @@ class CrudTestRunner {
     
     print('\n[PASSO 1/3] Criando dados de pré-requisito (Raça e Classe)...');
     final racaElfo = Raca(id: uuid.v4(), nome: 'Elfo', modificadoresDeAtributo: {'destreza': 2});
-    final classeMago = ClassePersonagem(id: uuid.v4(), nome: 'Mago', proficienciaArmadura: 0, proficienciaArma: 1, habilidadesDisponiveis: []);
+    final classeMago = ClassePersonagem(id: uuid.v4(), nome: 'Mago', proficienciaArmadura: ProficienciaArmadura.Nenhuma, proficienciaArma: ProficienciaArma.Simples, habilidadesDisponiveis: []);
     await racaRepo.save(racaElfo);
     await classeRepo.save(classeMago);
     print('Pré-requisitos salvos.');
@@ -383,7 +384,7 @@ class CrudTestRunner {
 
     print('\n[PASSO 1/4] Criando autor e alvo para o teste...');
     final racaGuerreiro = Raca(id: uuid.v4(), nome: 'Meio-Orc', modificadoresDeAtributo: {'forca': 2, 'constituicao': 1});
-    final classeBarbaro = ClassePersonagem(id: uuid.v4(), nome: 'Bárbaro', proficienciaArmadura: 2, proficienciaArma: 4, habilidadesDisponiveis: []);
+    final classeBarbaro = ClassePersonagem(id: uuid.v4(), nome: 'Bárbaro', proficienciaArmadura: ProficienciaArmadura.Media, proficienciaArma: ProficienciaArma.Marcial, habilidadesDisponiveis: []);
     await racaRepo.save(racaGuerreiro);
     await classeRepo.save(classeBarbaro);
 
@@ -450,8 +451,8 @@ class CrudTestRunner {
     final classeArqueiro = ClassePersonagem(
       id: uuid.v4(),
       nome: 'Arqueiro',
-      proficienciaArmadura: 3,
-      proficienciaArma: 5,
+      proficienciaArmadura: ProficienciaArmadura.Leve,
+      proficienciaArma: ProficienciaArma.Marcial,
       habilidadesDisponiveis: [],
     );
     // Salva a raça e classe pois o construtor do Personagem precisa delas.

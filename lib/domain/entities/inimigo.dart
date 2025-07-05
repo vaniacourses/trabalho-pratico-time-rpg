@@ -7,8 +7,7 @@ import 'package:uuid/uuid.dart';
 // ATUALIZAÇÃO: Inimigo agora implementa IPrototype<Inimigo>
 class Inimigo extends Combatente implements IPrototype<Inimigo> {
   final String tipo;
-  Arma? arma;
-  Arma? armadura;
+  // REMOVIDO: Atributos 'arma' e 'armadura' movidos para Combatente.
 
   Inimigo({
     required super.id,
@@ -18,9 +17,10 @@ class Inimigo extends Combatente implements IPrototype<Inimigo> {
     required super.classeArmadura,
     required super.atributosBase,
     required super.habilidadesPreparadas,
+    // ADICIONADO: Passando 'arma' e 'armadura' para o construtor super.
+    super.arma,
+    super.armadura,
     required this.tipo,
-    this.arma,
-    this.armadura,
   });
 
   // ATUALIZAÇÃO: Implementação do método clone do padrão Prototype.

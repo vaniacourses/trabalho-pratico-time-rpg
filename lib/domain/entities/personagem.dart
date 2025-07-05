@@ -8,8 +8,7 @@ import 'raca.dart';
 class Personagem extends Combatente {
   final Raca raca;
   final ClassePersonagem classe;
-  Arma? armadura; // Pode não ter armadura
-  Arma? arma; // Pode estar desarmado
+  // REMOVIDO: Atributos 'armadura' e 'arma' movidos para Combatente.
   
   // Equipamentos e habilidades específicas do personagem
   final Map<String, Arma> equipamentos;
@@ -24,12 +23,13 @@ class Personagem extends Combatente {
     required super.classeArmadura,
     required super.atributosBase,
     required super.habilidadesPreparadas,
+    // ADICIONADO: Passando 'arma' e 'armadura' para o construtor super.
+    super.arma,
+    super.armadura,
     
     // Parâmetros específicos de Personagem
     required this.raca,
     required this.classe,
-    this.armadura,
-    this.arma,
     required this.equipamentos,
     required this.habilidadesConhecidas,
   });

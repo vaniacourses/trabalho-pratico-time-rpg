@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:trabalho_rpg/domain/entities/classe_personagem.dart';
+import 'package:trabalho_rpg/domain/entities/enums/proficiencias.dart';
 import 'package:trabalho_rpg/domain/repositories/i_classe_personagem_repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -40,9 +41,11 @@ class ClassesViewModel extends ChangeNotifier {
   Future<void> saveClasse({
     String? id,
     required String nome,
-    required int profArmadura,
-    required int profArma,
+    // MUDANÇA: Os tipos dos parâmetros foram atualizados de 'int' para os enums.
+    required ProficienciaArmadura profArmadura,
+    required ProficienciaArma profArma,
   }) async {
+    // Agora a entidade é criada passando os valores de enum diretamente.
     final classe = ClassePersonagem(
       id: id ?? _uuid.v4(),
       nome: nome,

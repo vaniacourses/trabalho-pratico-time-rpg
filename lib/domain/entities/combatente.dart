@@ -1,6 +1,8 @@
 import 'package:trabalho_rpg/domain/entities/alvo_de_acao.dart';
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
+// ADICIONADO: Import da classe Arma
+import 'package:trabalho_rpg/domain/entities/arma.dart';
 
 // ATUALIZAÇÃO: Agora implementa a interface AlvoDeAcao
 abstract class Combatente implements AlvoDeAcao {
@@ -12,6 +14,10 @@ abstract class Combatente implements AlvoDeAcao {
   int classeArmadura;
   AtributosBase atributosBase;
   List<Habilidade> habilidadesPreparadas;
+
+  // ADICIONADO: Atributos movidos para a classe base.
+  Arma? arma;
+  Arma? armadura;
   
   Combatente({
     required this.id,
@@ -21,6 +27,9 @@ abstract class Combatente implements AlvoDeAcao {
     required this.classeArmadura,
     required this.atributosBase,
     required this.habilidadesPreparadas,
+    // ADICIONADO: Parâmetros no construtor da base.
+    this.arma,
+    this.armadura,
   }) {
     vidaAtual = vidaMax;
   }

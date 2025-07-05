@@ -62,14 +62,19 @@ class MyAppProviders extends StatelessWidget {
             habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
           ),
         ),
-        ProxyProvider2<
+        ProxyProvider4<
           IRacaRepository,
           IClassePersonagemRepository,
+          IArmaRepository,
+          IHabilidadeRepository,
           IFichaFactory
         >(
-          update: (_, racaRepo, classeRepo, __) => PersonagemFactoryImpl(
+          update: (_, racaRepo, classeRepo, armaRepo, habRepo, __) =>
+              PersonagemFactoryImpl(
             racaRepository: racaRepo,
             classeRepository: classeRepo,
+                armaRepository: armaRepo,
+                habilidadeRepository: habRepo,
             uuid: const Uuid(),
           ),
         ),

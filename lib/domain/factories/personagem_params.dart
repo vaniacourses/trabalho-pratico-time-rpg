@@ -1,13 +1,16 @@
+// Adicionamos os campos que faltavam
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 
-/// Agrupa todos os parâmetros necessários para criar um novo personagem.
 class PersonagemParams {
   final String nome;
   final int nivel;
-  final String racaId; // <-- Recebemos o ID, não o objeto
-  final String classeId; // <-- Recebemos o ID, não o objeto
+  final String racaId;
+  final String classeId;
   final AtributosBase atributos;
-  // Poderíamos adicionar IDs de armas, armaduras, etc. aqui também.
+  final String? armaId;
+  final String? armaduraId;
+  final List<String> habilidadesConhecidasIds;
+  final List<String> habilidadesPreparadasIds;
 
   PersonagemParams({
     required this.nome,
@@ -15,5 +18,9 @@ class PersonagemParams {
     required this.racaId,
     required this.classeId,
     required this.atributos,
+    this.armaId,
+    this.armaduraId,
+    required this.habilidadesConhecidasIds,
+    required this.habilidadesPreparadasIds,
   });
 }

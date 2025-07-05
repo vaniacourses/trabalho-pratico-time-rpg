@@ -34,7 +34,6 @@ class CriarPersonagemViewModel extends ChangeNotifier {
         _personagemRepository = personagemRepository,
         _fichaFactory = fichaFactory;
 
-  // --- ESTADO DA UI ---
   bool _isLoading = true;
   bool get isLoading => _isLoading;
 
@@ -47,23 +46,29 @@ class CriarPersonagemViewModel extends ChangeNotifier {
   List<ClassePersonagem> _classesDisponiveis = [];
   List<ClassePersonagem> get classesDisponiveis => _classesDisponiveis;
   
-  // (Opcional) Poderíamos carregar armas e habilidades aqui também.
+  // ATUALIZAÇÃO: Novas listas para as opções
+  List<Arma> _armasDisponiveis = [];
+  List<Arma> get armasDisponiveis => _armasDisponiveis;
 
-  // --- AÇÕES ---
+  List<Habilidade> _habilidadesDisponiveis = [];
+  List<Habilidade> get habilidadesDisponiveis => _habilidadesDisponiveis;
 
-  /// Carrega todas as opções necessárias dos repositórios.
   Future<void> carregarDadosIniciais() async {
     _isLoading = true;
     _error = null;
     notifyListeners();
     try {
-      // Executa todas as buscas em paralelo para mais eficiência.
+      // ATUALIZAÇÃO: Carrega todas as opções necessárias em paralelo
       final results = await Future.wait([
         _racaRepository.getAll(),
         _classeRepository.getAll(),
+        _armaRepository.getAll(),
+        _habilidadeRepository.getAll(),
       ]);
       _racasDisponiveis = results[0] as List<Raca>;
       _classesDisponiveis = results[1] as List<ClassePersonagem>;
+      _armasDisponiveis = results[2] as List<Arma>;
+      _habilidadesDisponiveis = results[3] as List<Habilidade>;
     } catch (e) {
       _error = "Falha ao carregar opções: ${e.toString()}";
     } finally {
@@ -72,27 +77,30 @@ class CriarPersonagemViewModel extends ChangeNotifier {
     }
   }
 
-  /// Usa a factory para criar e o repositório para salvar o personagem.
-  Future<bool> criarEsalvarPersonagem(PersonagemParams params) async {
+  // ATUALIZAÇÃO: O método agora recebe o ID opcional para edição
+  Future<bool> criarOuAtualizarPersonagem(
+    PersonagemParams params, {
+    String? id,
+  }) async {
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      // Usa a factory para criar a instância complexa do personagem.
-      Personagem novoPersonagem = await _fichaFactory.criarPersonagem(params);
-      
-      // Usa o repositório para salvar o personagem no banco de dados.
-      await _personagemRepository.save(novoPersonagem);
+      Personagem personagem = await _fichaFactory.criarPersonagem(
+        params,
+        id: id,
+      );
+      await _personagemRepository.save(personagem);
       
       _isLoading = false;
       notifyListeners();
-      return true; // Retorna sucesso
+      return true;
     } catch (e) {
-      _error = "Falha ao criar personagem: ${e.toString()}";
+      _error = "Falha ao salvar personagem: ${e.toString()}";
       _isLoading = false;
       notifyListeners();
-      return false; // Retorna falha
+      return false;
     }
   }
 }

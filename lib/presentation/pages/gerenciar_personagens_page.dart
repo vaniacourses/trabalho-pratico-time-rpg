@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:trabalho_rpg/domain/entities/personagem.dart';
+import 'package:trabalho_rpg/presentation/pages/criar_personagem_page.dart';
 import 'package:trabalho_rpg/presentation/providers/personagens_view_model.dart';
 
 class GerenciarPersonagensPage extends StatefulWidget {
@@ -13,9 +15,24 @@ class _GerenciarPersonagensPageState extends State<GerenciarPersonagensPage> {
   @override
   void initState() {
     super.initState();
-    // CORREÇÃO: Atrasamos a chamada para depois do primeiro build.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<PersonagensViewModel>(context, listen: false).fetchPersonagens();
+    });
+  }
+
+  void _navigateToCreateEditPage({Personagem? personagem}) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        // Navega para a mesma tela, passando o personagem se for edição.
+        builder: (_) => CriarPersonagemPage(personagem: personagem),
+      ),
+    ).then((_) {
+      // Quando a tela de criação/edição for fechada, atualiza a lista.
+      Provider.of<PersonagensViewModel>(
+        context,
+        listen: false,
+      ).fetchPersonagens();
     });
   }
 
@@ -42,16 +59,24 @@ class _GerenciarPersonagensPageState extends State<GerenciarPersonagensPage> {
                 leading: CircleAvatar(child: Text(personagem.nivel.toString())),
                 title: Text(personagem.nome),
                 subtitle: Text('${personagem.raca.nome} ${personagem.classe.nome}'),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () {
-                    Provider.of<PersonagensViewModel>(context, listen: false)
-                        .deletePersonagem(personagem.id);
-                  },
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // ATUALIZAÇÃO: Botão de Editar
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.blue),
+                      onPressed: () =>
+                          _navigateToCreateEditPage(personagem: personagem),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        viewModel.deletePersonagem(personagem.id);
+                      },
+                    ),
+                  ],
                 ),
-                onTap: () {
-                  // Futuramente, navegaria para uma tela de detalhes/edição.
-                },
+                onTap: () => _navigateToCreateEditPage(personagem: personagem),
               ),
             );
           },

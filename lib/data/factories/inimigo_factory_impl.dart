@@ -4,13 +4,11 @@ import 'package:trabalho_rpg/domain/entities/inimigo.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
 import 'package:trabalho_rpg/domain/factories/inimigo_params.dart';
 import 'package:trabalho_rpg/domain/factories/ficha_factory.dart';
+import 'package:trabalho_rpg/domain/factories/personagem_params.dart';
 import 'package:trabalho_rpg/domain/repositories/i_arma_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_habilidade_repository.dart';
 import 'package:uuid/uuid.dart';
 
-// Nota: Esta classe implementa apenas a parte de Inimigo da interface.
-// Em uma aplicação maior, poderíamos ter uma única classe Factory que implementa
-// ambos os métodos, ou manter separado como aqui para responsabilidades distintas.
 class InimigoFactoryImpl implements IFichaFactory {
   final IArmaRepository _armaRepository;
   final IHabilidadeRepository _habilidadeRepository;
@@ -26,7 +24,6 @@ class InimigoFactoryImpl implements IFichaFactory {
 
   @override
   Future<Inimigo> criarInimigo(InimigoParams params) async {
-    // 1. Busca as dependências opcionais
     Arma? arma;
     if (params.armaId != null) {
       arma = await _armaRepository.getById(params.armaId!);
@@ -36,7 +33,6 @@ class InimigoFactoryImpl implements IFichaFactory {
       armadura = await _armaRepository.getById(params.armaduraId!);
     }
 
-    // 2. Busca a lista de habilidades
     List<Habilidade> habilidades = [];
     for (String id in params.habilidadesIds) {
       final habilidade = await _habilidadeRepository.getById(id);
@@ -45,11 +41,9 @@ class InimigoFactoryImpl implements IFichaFactory {
       }
     }
     
-    // 3. Lógica de Negócio (cálculos)
     final vidaMax = 5 + (params.atributos.constituicao * params.nivel);
     final classeArmadura = 10 + params.atributos.destreza;
 
-    // 4. Cria e retorna a instância final do Inimigo
     return Inimigo(
       id: _uuid.v4(),
       nome: params.nome,
@@ -64,10 +58,9 @@ class InimigoFactoryImpl implements IFichaFactory {
     );
   }
 
-  // Este método não é implementado por esta classe.
-  // Lançar um erro garante que ele não seja chamado acidentalmente.
+  // CORREÇÃO: Adicionada a assinatura correta do método que não é implementado aqui.
   @override
-  Future<Personagem> criarPersonagem(params) {
+  Future<Personagem> criarPersonagem(PersonagemParams params, {String? id}) {
     throw UnimplementedError('Esta factory só cria inimigos. Use PersonagemFactoryImpl para personagens.');
   }
 }

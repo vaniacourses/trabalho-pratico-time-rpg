@@ -6,13 +6,17 @@ import 'package:trabalho_rpg/data/factories/inimigo_factory_impl.dart';
 import 'package:trabalho_rpg/data/factories/personagem_factory_impl.dart';
 import 'package:trabalho_rpg/data/repositories/arma_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/classe_personagem_repository_impl.dart';
+import 'package:trabalho_rpg/data/repositories/grupo_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/habilidade_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/inimigo_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/personagem_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/raca_repository_impl.dart';
+import 'package:trabalho_rpg/domain/entities/inimigo.dart';
+import 'package:trabalho_rpg/domain/entities/personagem.dart';
 import 'package:trabalho_rpg/domain/factories/ficha_factory.dart';
 import 'package:trabalho_rpg/domain/repositories/i_arma_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_classe_personagem_repository.dart';
+import 'package:trabalho_rpg/domain/repositories/i_grupo_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_habilidade_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_inimigo_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_personagem_repository.dart';
@@ -21,6 +25,7 @@ import 'package:trabalho_rpg/presentation/pages/criar_editar_inimigo_page.dart';
 import 'package:trabalho_rpg/presentation/pages/criar_personagem_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_armas_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_classes_page.dart';
+import 'package:trabalho_rpg/presentation/pages/gerenciar_grupos_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_habilidades_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_inimigos_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_personagens_page.dart';
@@ -28,6 +33,7 @@ import 'package:trabalho_rpg/presentation/pages/gerenciar_racas_page.dart';
 import 'package:trabalho_rpg/presentation/providers/armas_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/classes_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/criar_personagem_view_model.dart';
+import 'package:trabalho_rpg/presentation/providers/grupos_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/habilidades_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/inimigos_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/personagens_view_model.dart';
@@ -51,6 +57,32 @@ class MyAppProviders extends StatelessWidget {
         Provider<DatabaseHelper>(create: (_) => DatabaseHelper.instance),
         ProxyProvider<DatabaseHelper, IRacaRepository>(
           update: (_, db, __) => RacaRepositoryImpl(dbHelper: db),
+        ),
+        ProxyProvider<DatabaseHelper, IGrupoRepository<Personagem>>(
+          update: (_, db, __) => GrupoRepositoryImpl<Personagem>(
+            dbHelper: db,
+            personagemRepository: PersonagemRepositoryImpl(
+              dbHelper: db,
+              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
+            ),
+            inimigoRepository: InimigoRepositoryImpl(
+              dbHelper: db,
+              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
+            ),
+          ),
+        ),
+        ProxyProvider<DatabaseHelper, IGrupoRepository<Inimigo>>(
+          update: (_, db, __) => GrupoRepositoryImpl<Inimigo>(
+            dbHelper: db,
+            personagemRepository: PersonagemRepositoryImpl(
+              dbHelper: db,
+              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
+            ),
+            inimigoRepository: InimigoRepositoryImpl(
+              dbHelper: db,
+              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
+            ),
+          ),
         ),
         ProxyProvider<DatabaseHelper, IClassePersonagemRepository>(
           update: (_, db, __) => ClassePersonagemRepositoryImpl(dbHelper: db),
@@ -129,6 +161,13 @@ class MyAppProviders extends StatelessWidget {
             fichaFactory: ctx.read<PersonagemFactoryImpl>(),
           ),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => GruposViewModel(
+            grupoPersonagemRepository: ctx.read<IGrupoRepository<Personagem>>(),
+            grupoInimigoRepository: ctx.read<IGrupoRepository<Inimigo>>(),
+            uuid: ctx.read<Uuid>(),
+          ),
+        ),
       ],
       child: const MyApp(),
     );
@@ -164,7 +203,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _mainTabController = TabController(length: 2, vsync: this);
+    _mainTabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -182,6 +221,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           controller: _mainTabController,
           tabs: const [
             Tab(icon: Icon(Icons.group), text: 'Fichas'),
+            Tab(icon: Icon(Icons.groups), text: 'Grupos'),
             Tab(icon: Icon(Icons.settings), text: 'Gerenciamento'),
           ],
         ),
@@ -191,6 +231,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         children: [
           // Passamos o TabController da MainPage para a FichasTabPage
           FichasTabPage(mainTabController: _mainTabController),
+          GerenciarGruposPage(),
           const GerenciamentoGeralPage(),
         ],
       ),

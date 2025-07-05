@@ -19,6 +19,7 @@ void main() async {
     await runner.testarFactoryDeInimigo();
     await runner.testarStrategyHabilidade();
     await runner.testarComposite();
+    await runner.testarPrototypeInimigo();
 
   } catch (e) {
     print('!!!!!!!!!! UM ERRO OCORREU DURANTE O TESTE !!!!!!!!!!');

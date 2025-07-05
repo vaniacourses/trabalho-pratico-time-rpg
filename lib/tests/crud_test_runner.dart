@@ -563,4 +563,66 @@ class CrudTestRunner {
 
     print('\n--- TESTE DO PADRÃO COMPOSITE FINALIZADO COM SUCESSO ---');
   }
+
+  Future<void> testarPrototypeInimigo() async {
+    print('--- INICIANDO TESTE DO PADRÃO PROTOTYPE ---');
+
+    // 1. Criar um inimigo original (o protótipo)
+    print('\n[PASSO 1/3] Criando o inimigo protótipo...');
+    final inimigoOriginal = Inimigo(
+      id: uuid.v4(),
+      nome: 'Lobo das Cavernas',
+      nivel: 3,
+      vidaMax: 25,
+      classeArmadura: 13,
+      tipo: 'Besta',
+      atributosBase: AtributosBase(
+        forca: 14,
+        destreza: 16,
+        constituicao: 14,
+        inteligencia: 3,
+        sabedoria: 12,
+        carisma: 6,
+      ),
+      habilidadesPreparadas: [],
+    );
+    print(
+      'Protótipo criado: "${inimigoOriginal.nome}" (ID: ${inimigoOriginal.id})',
+    );
+
+    // 2. Usar o método clone para criar uma réplica
+    print('\n[PASSO 2/3] Clonando o protótipo...');
+    final inimigoClonado = inimigoOriginal.clone();
+    print('Clone criado: "${inimigoClonado.nome}" (ID: ${inimigoClonado.id})');
+
+    // 3. Validar o clone
+    print('\n[PASSO 3/3] Validando as propriedades do clone...');
+    assert(inimigoClonado != null, 'ERRO: O clone não foi criado.');
+    assert(
+      inimigoClonado.id != inimigoOriginal.id,
+      'ERRO: O clone tem o mesmo ID do original!',
+    );
+    assert(
+      inimigoClonado.nome == inimigoOriginal.nome,
+      'ERRO: O nome do clone é diferente.',
+    );
+    assert(
+      inimigoClonado.vidaAtual == inimigoOriginal.vidaAtual,
+      'ERRO: A vida atual do clone é diferente.',
+    );
+
+    // Testa se a modificação em um não afeta o outro
+    inimigoClonado.receberDano(5);
+    print('Aplicando 5 de dano ao clone...');
+    assert(
+      inimigoClonado.vidaAtual < inimigoOriginal.vidaAtual,
+      'ERRO: O dano no clone afetou o original!',
+    );
+    print(
+      'Vida Original: ${inimigoOriginal.vidaAtual} | Vida Clone: ${inimigoClonado.vidaAtual}',
+    );
+
+    print('Validação bem-sucedida!');
+    print('\n--- TESTE DO PADRÃO PROTOTYPE FINALIZADO COM SUCESSO ---');
+  }
 }

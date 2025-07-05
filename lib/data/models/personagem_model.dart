@@ -18,7 +18,7 @@ class PersonagemModel extends Personagem {
          // são inicializadas como vazias por enquanto.
          habilidadesPreparadas: [],
          habilidadesConhecidas: [],
-         equipamentos: {},
+         //equipamentos: {},
        );
 
   /// Construtor de fábrica para criar uma instância a partir de um Map do BD.

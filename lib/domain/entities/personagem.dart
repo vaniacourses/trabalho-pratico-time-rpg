@@ -1,3 +1,4 @@
+import 'armadura.dart';
 import 'arma.dart';
 import 'classe_personagem.dart';
 import 'combatente.dart';
@@ -8,11 +9,11 @@ import 'raca.dart';
 class Personagem extends Combatente {
   final Raca raca;
   final ClassePersonagem classe;
-  Arma? armadura; // Pode não ter armadura
+  Armadura? armadura; // Pode não ter armadura
   Arma? arma; // Pode estar desarmado
   
-  // Equipamentos e habilidades específicas do personagem
-  final Map<String, Arma> equipamentos;
+  //// Equipamentos e habilidades específicas do personagem
+  //final Map<String, Arma> equipamentos;
   final List<Habilidade> habilidadesConhecidas;
 
   Personagem({
@@ -30,7 +31,7 @@ class Personagem extends Combatente {
     required this.classe,
     this.armadura,
     this.arma,
-    required this.equipamentos,
+    //required this.equipamentos,
     required this.habilidadesConhecidas,
   });
 }

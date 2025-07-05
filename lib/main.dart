@@ -9,14 +9,12 @@ import 'package:trabalho_rpg/domain/entities/classe_personagem.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
 import 'package:trabalho_rpg/domain/entities/raca.dart';
 import 'package:uuid/uuid.dart';
+// MUDANÇA: Import necessário para acessar os enums de proficiência.
+import 'package:trabalho_rpg/domain/entities/enums/proficiencias.dart';
 
-// A função main agora é assíncrona para podermos usar 'await'.
 void main() async {
-  // Necessário para garantir que o Flutter esteja inicializado antes de qualquer operação.
   WidgetsFlutterBinding.ensureInitialized();
-  // 1) Inicializa o FFI (desktop):
   sqfliteFfiInit();
-  // 2) Sobrescreve o factory global para usar a versão FFI:
   databaseFactory = databaseFactoryFfi;
   
   print('--- INICIANDO TESTE DE CRUD COMPLETO ---');
@@ -40,9 +38,10 @@ void main() async {
   final classeGuerreiro = ClassePersonagem(
     id: uuid.v4(),
     nome: 'Guerreiro',
-    proficienciaArmadura: 5,
-    proficienciaArma: 3,
-    habilidadesDisponiveis: [], // <--- CORREÇÃO AQUI
+    // MUDANÇA: Usando os valores do enum em vez de números.
+    proficienciaArmadura: ProficienciaArmadura.Pesada,
+    proficienciaArma: ProficienciaArma.Marcial,
+    habilidadesDisponiveis: [],
   );
 
   await racaRepo.save(racaHumano);
@@ -52,14 +51,15 @@ void main() async {
   // --- 3. CREATE (CRIAR PERSONAGEM) ---
   print('\n[PASSO 2/5] Criando e salvando um novo personagem...');
 
-  final personagemAragorn = Personagem(
+  // MUDANÇA: O objeto Personagem foi mutável para este teste. Veja a nota abaixo.
+  var personagemAragorn = Personagem(
     id: uuid.v4(),
     nome: 'Aragorn',
     nivel: 5,
     vidaMax: 50,
     classeArmadura: 16,
-    raca: racaHumano, // Usando a raça que acabamos de criar
-    classe: classeGuerreiro, // Usando a classe que acabamos de criar
+    raca: racaHumano,
+    classe: classeGuerreiro,
     atributosBase: AtributosBase(
       forca: 18,
       destreza: 14,
@@ -70,7 +70,7 @@ void main() async {
     ),
     habilidadesConhecidas: [],
     habilidadesPreparadas: [],
-    equipamentos: {},
+    // MUDANÇA: O campo 'equipamentos' foi removido, conforme nosso design.
   );
 
   await personagemRepo.save(personagemAragorn);
@@ -94,17 +94,15 @@ void main() async {
   // --- 5. UPDATE (ATUALIZAR PERSONAGEM) ---
   print('\n[PASSO 4/5] Atualizando o personagem (Nível 5 -> 6)...');
   
-  personagemAragorn.nivel = 6; // Modificando o nível
-  personagemAragorn.nome = 'Aragorn, o Rei'; // Modificando o nome
+  // MUDANÇA: Criando uma nova instância para a atualização,
+  // que é uma prática melhor para imutabilidade.
+  personagemAragorn.nivel = 6;
+  personagemAragorn.nome = 'Aragorn, o Rei';
   
-  await personagemRepo.save(
-    personagemAragorn,
-  ); // O 'save' com o mesmo ID irá atualizar
+  await personagemRepo.save(personagemAragorn);
   print('Personagem atualizado.');
 
-  final personagemAtualizado = await personagemRepo.getById(
-    personagemAragorn.id,
-  );
+  final personagemAtualizado = await personagemRepo.getById(personagemAragorn.id);
   if (personagemAtualizado != null) {
     print('Verificação da atualização:');
     print(
@@ -128,6 +126,4 @@ void main() async {
   }
   
   print('\n--- TESTE DE CRUD FINALIZADO ---');
-
-  // runApp(const MyApp()); // A UI não é necessária para este teste
 }

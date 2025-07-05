@@ -430,4 +430,137 @@ class CrudTestRunner {
 
     print('\n--- TESTE DO PADRÃO STRATEGY FINALIZADO COM SUCESSO ---');
   }
+
+  Future<void> testarComposite() async {
+    print('--- INICIANDO TESTE DO PADRÃO COMPOSITE ---');
+
+    // 1. Criar pré-requisitos
+    print('\n[PASSO 1/3] Criando pré-requisitos para o teste...');
+    final racaElfo = Raca(
+      id: uuid.v4(),
+      nome: 'Elfo da Floresta',
+      modificadoresDeAtributo: {'destreza': 2},
+    );
+    final classeArqueiro = ClassePersonagem(
+      id: uuid.v4(),
+      nome: 'Arqueiro',
+      proficienciaArmadura: 3,
+      proficienciaArma: 5,
+      habilidadesDisponiveis: [],
+    );
+    // Salva a raça e classe pois o construtor do Personagem precisa delas.
+    await racaRepo.save(racaElfo);
+    await classeRepo.save(classeArqueiro);
+
+    final autor = Personagem(
+      id: uuid.v4(),
+      nome: 'Legolas',
+      nivel: 10,
+      vidaMax: 80,
+      classeArmadura: 16,
+      raca: racaElfo,
+      classe: classeArqueiro,
+      atributosBase: AtributosBase(
+        forca: 12,
+        destreza: 20,
+        constituicao: 12,
+        inteligencia: 14,
+        sabedoria: 16,
+        carisma: 10,
+      ),
+      habilidadesConhecidas: [],
+      habilidadesPreparadas: [],
+      equipamentos: {},
+    );
+
+    final inimigo1 = Inimigo(
+      id: uuid.v4(),
+      nome: 'Goblin Batedor',
+      nivel: 1,
+      vidaMax: 10,
+      classeArmadura: 12,
+      tipo: 'Humanoide',
+      atributosBase: AtributosBase(
+        forca: 10,
+        destreza: 14,
+        constituicao: 10,
+        inteligencia: 8,
+        sabedoria: 8,
+        carisma: 8,
+      ),
+      habilidadesPreparadas: [],
+    );
+
+    final inimigo2 = Inimigo(
+      id: uuid.v4(),
+      nome: 'Goblin Arqueiro',
+      nivel: 1,
+      vidaMax: 12,
+      classeArmadura: 13,
+      tipo: 'Humanoide',
+      atributosBase: AtributosBase(
+        forca: 8,
+        destreza: 16,
+        constituicao: 10,
+        inteligencia: 8,
+        sabedoria: 9,
+        carisma: 8,
+      ),
+      habilidadesPreparadas: [],
+    );
+
+    final grupoDeInimigos = Grupo<Inimigo>(
+      id: uuid.v4(),
+      nome: 'Patrulha Goblin',
+      membros: [inimigo1, inimigo2],
+    );
+
+    final chuvaDeFlechas = HabilidadeDeDanoModel(
+      id: uuid.v4(),
+      nome: 'Chuva de Flechas',
+      descricao: 'Atira uma saraivada de flechas em uma área.',
+      custo: 20,
+      nivelExigido: 5,
+      danoBase: 15,
+    );
+
+    print(
+      'Vida inicial: ${inimigo1.nome}: ${inimigo1.vidaAtual}, ${inimigo2.nome}: ${inimigo2.vidaAtual}',
+    );
+
+    // 2. Executa a mesma habilidade em alvos diferentes
+    print('\n[PASSO 2/3] Atacando alvo INDIVIDUAL...');
+    chuvaDeFlechas.execute(autor: autor, alvo: inimigo1);
+    assert(
+      inimigo1.vidaAtual < inimigo1.vidaMax,
+      'ERRO: Dano individual não funcionou',
+    );
+    assert(
+      inimigo2.vidaAtual == inimigo2.vidaMax,
+      'ERRO: Alvo errado foi atingido',
+    );
+    print(
+      'Estado após ataque individual -> ${inimigo1.nome}: ${inimigo1.vidaAtual}, ${inimigo2.nome}: ${inimigo2.vidaAtual}',
+    );
+
+    // Reseta a vida para o próximo teste
+    inimigo1.vidaAtual = inimigo1.vidaMax;
+    print('\nVida resetada para o próximo teste.');
+
+    print('\n[PASSO 3/3] Atacando alvo em GRUPO...');
+    chuvaDeFlechas.execute(autor: autor, alvo: grupoDeInimigos);
+    assert(
+      inimigo1.vidaAtual < inimigo1.vidaMax,
+      'ERRO: Dano em grupo não funcionou para membro 1',
+    );
+    assert(
+      inimigo2.vidaAtual < inimigo2.vidaMax,
+      'ERRO: Dano em grupo não funcionou para membro 2',
+    );
+    print(
+      'Estado após ataque em grupo -> ${inimigo1.nome}: ${inimigo1.vidaAtual}, ${inimigo2.nome}: ${inimigo2.vidaAtual}',
+    );
+
+    print('\n--- TESTE DO PADRÃO COMPOSITE FINALIZADO COM SUCESSO ---');
+  }
 }

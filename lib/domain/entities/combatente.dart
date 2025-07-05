@@ -1,12 +1,14 @@
+import 'package:trabalho_rpg/domain/entities/alvo_de_acao.dart';
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
 
-abstract class Combatente {
+// ATUALIZAÇÃO: Agora implementa a interface AlvoDeAcao
+abstract class Combatente implements AlvoDeAcao {
   final String id;
   String nome;
   int nivel;
   int vidaMax;
-  late int vidaAtual; 
+  late int vidaAtual;
   int classeArmadura;
   AtributosBase atributosBase;
   List<Habilidade> habilidadesPreparadas;
@@ -21,5 +23,26 @@ abstract class Combatente {
     required this.habilidadesPreparadas,
   }) {
     vidaAtual = vidaMax;
+  }
+
+  // ATUALIZAÇÃO: Implementação dos métodos da interface.
+  @override
+  void receberDano(int quantidade) {
+    print('>> ${nome} (HP: $vidaAtual) recebe $quantidade de dano.');
+    vidaAtual -= quantidade;
+    if (vidaAtual < 0) {
+      vidaAtual = 0;
+    }
+    print('>> Vida atual de ${nome}: $vidaAtual');
+  }
+
+  @override
+  void receberCura(int quantidade) {
+    print('>> ${nome} (HP: $vidaAtual) recebe $quantidade de cura.');
+    vidaAtual += quantidade;
+    if (vidaAtual > vidaMax) {
+      vidaAtual = vidaMax;
+    }
+    print('>> Vida atual de ${nome}: $vidaAtual');
   }
 }

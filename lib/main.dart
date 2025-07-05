@@ -12,12 +12,13 @@ void main() async {
   final runner = CrudTestRunner(dbHelper);
 
   try {
-    // await runner.testarCrudDePersonagem();
-    // await runner.testarCrudDeInimigo();
-    // await runner.testarCrudDeGrupo();
-    // await runner.testarFactoryDePersonagem();
-    // await runner.testarFactoryDeInimigo();
+    await runner.testarCrudDePersonagem();
+    await runner.testarCrudDeInimigo();
+    await runner.testarCrudDeGrupo();
+    await runner.testarFactoryDePersonagem();
+    await runner.testarFactoryDeInimigo();
     await runner.testarStrategyHabilidade();
+    await runner.testarComposite();
 
   } catch (e) {
     print('!!!!!!!!!! UM ERRO OCORREU DURANTE O TESTE !!!!!!!!!!');

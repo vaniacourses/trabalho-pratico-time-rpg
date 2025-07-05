@@ -1,3 +1,4 @@
+import 'package:trabalho_rpg/domain/entities/alvo_de_acao.dart';
 import 'package:trabalho_rpg/domain/entities/combatente.dart';
 
 abstract class Habilidade {
@@ -15,8 +16,8 @@ abstract class Habilidade {
     required this.nivelExigido,
   });
 
-  void execute({required Combatente autor, required Combatente alvo});
+  // ATUALIZAÇÃO: O tipo do alvo agora é a interface genérica 'AlvoDeAcao'.
+  void execute({required Combatente autor, required AlvoDeAcao alvo});
 
-  // ATUALIZAÇÃO: Adicionado método para persistência polimórfica.
   Map<String, dynamic> toPersistenceMap();
 }

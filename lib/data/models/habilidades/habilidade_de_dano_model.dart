@@ -1,4 +1,5 @@
-import 'package:trabalho_rpg/data/models/habilidades/habilidade_model.dart';
+import 'package:trabalho_rpg/data/models/habilidade_model.dart';
+import 'package:trabalho_rpg/domain/entities/alvo_de_acao.dart';
 import 'package:trabalho_rpg/domain/entities/combatente.dart';
 
 class HabilidadeDeDanoModel extends HabilidadeModel {
@@ -13,22 +14,18 @@ class HabilidadeDeDanoModel extends HabilidadeModel {
     required this.danoBase,
   });
 
+  // ATUALIZAÇÃO: O alvo agora é um AlvoDeAcao e a lógica foi simplificada.
   @override
-  void execute({required Combatente autor, required Combatente alvo}) {
+  void execute({required Combatente autor, required AlvoDeAcao alvo}) {
     final danoTotal = danoBase + (autor.atributosBase.forca / 2).floor();
-    print('${autor.nome} usa ${nome} em ${alvo.nome}, causando $danoTotal de dano!');
-    alvo.vidaAtual -= danoTotal;
-    if (alvo.vidaAtual < 0) alvo.vidaAtual = 0;
+    print('${autor.nome} usa ${nome}, causando $danoTotal de dano!');
+    alvo.receberDano(danoTotal);
   }
 
-  // ATUALIZAÇÃO: Sobrescreve o método para adicionar seus próprios campos.
   @override
   Map<String, dynamic> toPersistenceMap() {
     final map = super.toPersistenceMap();
-    map.addAll({
-      'categoria': 'dano',
-      'danoBase': danoBase,
-    });
+    map.addAll({'categoria': 'dano', 'danoBase': danoBase});
     return map;
   }
 }

@@ -1,4 +1,5 @@
-import 'package:trabalho_rpg/data/models/habilidades/habilidade_model.dart';
+import 'package:trabalho_rpg/data/models/habilidade_model.dart';
+import 'package:trabalho_rpg/domain/entities/alvo_de_acao.dart';
 import 'package:trabalho_rpg/domain/entities/combatente.dart';
 
 class HabilidadeDeCuraModel extends HabilidadeModel {
@@ -14,14 +15,12 @@ class HabilidadeDeCuraModel extends HabilidadeModel {
   });
 
   @override
-  void execute({required Combatente autor, required Combatente alvo}) {
+  void execute({required Combatente autor, required AlvoDeAcao alvo}) {
     final curaTotal = curaBase + (autor.atributosBase.sabedoria / 2).floor();
-    print('${autor.nome} usa ${nome} em ${alvo.nome}, curando $curaTotal pontos de vida!');
-    alvo.vidaAtual += curaTotal;
-    if (alvo.vidaAtual > alvo.vidaMax) alvo.vidaAtual = alvo.vidaMax;
+    print('${autor.nome} usa ${nome}, curando $curaTotal pontos de vida!');
+    alvo.receberCura(curaTotal);
   }
 
-  // ATUALIZAÇÃO: Sobrescreve o método para adicionar seus próprios campos.
   @override
   Map<String, dynamic> toPersistenceMap() {
     final map = super.toPersistenceMap();

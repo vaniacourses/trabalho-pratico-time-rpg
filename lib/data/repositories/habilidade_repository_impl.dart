@@ -18,37 +18,32 @@ class HabilidadeRepositoryImpl implements IHabilidadeRepository {
   Future<void> save(Habilidade habilidade) async {
     try {
       final db = await _dbHelper.database;
-      
-      // REATORADO: A lógica de conversão agora está aqui.
-      // O repositório identifica o tipo da entidade e cria o Map correto.
+
       Map<String, dynamic> persistenceMap;
 
       if (habilidade is HabilidadeDeDano) {
-        // Se for uma habilidade de dano, cria o mapa com seus campos específicos.
         persistenceMap = {
           'id': habilidade.id,
           'nome': habilidade.nome,
           'descricao': habilidade.descricao,
           'custo': habilidade.custo,
           'nivelExigido': habilidade.nivelExigido,
-          'categoria': 'dano', // <-- O "discriminador"
+          'categoria': 'dano',
           'danoBase': habilidade.danoBase,
-          'curaBase': null, // Garante que o campo não usado seja nulo
+          'curaBase': null,
         };
       } else if (habilidade is HabilidadeDeCura) {
-        // Se for uma habilidade de cura, cria o mapa com seus campos.
         persistenceMap = {
           'id': habilidade.id,
           'nome': habilidade.nome,
           'descricao': habilidade.descricao,
           'custo': habilidade.custo,
           'nivelExigido': habilidade.nivelExigido,
-          'categoria': 'cura', // <-- O "discriminador"
+          'categoria': 'cura',
           'danoBase': null,
           'curaBase': habilidade.curaBase,
         };
       } else {
-        // Lança um erro se receber um tipo de Habilidade desconhecido.
         throw ArgumentError('Tipo de Habilidade não suportado para persistência: ${habilidade.runtimeType}');
       }
 
@@ -56,19 +51,18 @@ class HabilidadeRepositoryImpl implements IHabilidadeRepository {
           conflictAlgorithm: ConflictAlgorithm.replace);
 
     } catch (e) {
-      // O erro do ArgumentError acima também será capturado e encapsulado aqui.
       throw DatasourceException(
           message: 'Falha ao salvar a habilidade.', originalException: e);
     }
   }
 
-  // O restante do arquivo (delete, getById, getAll, _mapToHabilidade)
-  // permanece exatamente o mesmo da versão anterior e correta.
   @override
   Future<void> delete(String id) async {
     try {
       final db = await _dbHelper.database;
       await db.delete('habilidades', where: 'id = ?', whereArgs: [id]);
+      // Also delete references in combatente_habilidades
+      await db.delete('combatente_habilidades', where: 'habilidadeId = ?', whereArgs: [id]);
     } catch (e) {
       throw DatasourceException(
           message: 'Falha ao deletar a habilidade.', originalException: e);
@@ -113,20 +107,28 @@ class HabilidadeRepositoryImpl implements IHabilidadeRepository {
     switch (categoria) {
       case 'dano':
         return HabilidadeDeDanoModel(
-            id: map['id'], nome: map['nome'], descricao: map['descricao'],
-            custo: map['custo'], nivelExigido: map['nivelExigido'],
-            danoBase: map['danoBase'] ?? 0);
+            id: map['id'] as String, // Cast to String
+            nome: map['nome'] as String,
+            descricao: map['descricao'] as String,
+            custo: map['custo'] as int,
+            nivelExigido: map['nivelExigido'] as int,
+            danoBase: map['danoBase'] as int? ?? 0); // Handle null for safety
       case 'cura':
         return HabilidadeDeCuraModel(
-            id: map['id'], nome: map['nome'], descricao: map['descricao'],
-            custo: map['custo'], nivelExigido: map['nivelExigido'],
-            curaBase: map['curaBase'] ?? 0);
+            id: map['id'] as String, // Cast to String
+            nome: map['nome'] as String,
+            descricao: map['descricao'] as String,
+            custo: map['custo'] as int,
+            nivelExigido: map['nivelExigido'] as int,
+            curaBase: map['curaBase'] as int? ?? 0); // Handle null for safety
       default:
+        // Fallback for generic Habilidade or throw error for unknown type
+        // Ensure default constructor matches if no category.
         throw Exception('Categoria de habilidade desconhecida no banco de dados: $categoria');
+        // throw Exception('Categoria de habilidade desconhecida no banco de dados: $categoria');
     }
   }
 
-  // ATUALIZAÇÃO: Implementação do novo método.
   @override
   Future<Map<String, List<Habilidade>>> getAllForCombatente(String combatenteId) async {
     try {
@@ -137,18 +139,21 @@ class HabilidadeRepositoryImpl implements IHabilidadeRepository {
         WHERE ch.combatenteId = ?
       ''';
       final maps = await db.rawQuery(sql, [combatenteId]);
-      
-      final List<Habilidade> conhecidas = [];
-      final List<Habilidade> preparadas = [];
-      
+
+      final List<Habilidade> known = []; // Use 'known'
+      final List<Habilidade> prepared = []; // Use 'prepared'
+
       for (final map in maps) {
         final habilidade = _mapToHabilidade(map);
-        conhecidas.add(habilidade);
-        if (map['tipo'] == 'preparada') {
-          preparadas.add(habilidade);
+        final type = map['tipo'] as String?; // Get the type from the join table, allow null
+
+        if (type == 'known') { // Check against 'known'
+          known.add(habilidade);
+        } else if (type == 'prepared') { // Check against 'prepared'
+          prepared.add(habilidade);
         }
       }
-      return {'conhecidas': conhecidas, 'preparadas': preparadas};
+      return {'known': known, 'prepared': prepared}; // Return with 'known' and 'prepared' keys
     } catch (e) {
       throw DatasourceException(
           message: 'Falha ao buscar habilidades para o combatente.', originalException: e);

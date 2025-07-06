@@ -61,13 +61,13 @@ class PersonagemFactoryImpl implements IFichaFactory {
     }
 
     List<Habilidade> habilidadesConhecidas = [];
-    for (final habId in params.habilidadesConhecidasIds) {
+    for (final habId in params.habilidadesConhecidasIds) { // These come from _habilidadesSelecionadasIds
       final hab = await _habilidadeRepository.getById(habId);
       if (hab != null) habilidadesConhecidas.add(hab);
     }
 
     List<Habilidade> habilidadesPreparadas = [];
-    for (final habId in params.habilidadesPreparadasIds) {
+    for (final habId in params.habilidadesPreparadasIds) { // These also come from _habilidadesSelecionadasIds
       final hab = await _habilidadeRepository.getById(habId);
       if (hab != null) habilidadesPreparadas.add(hab);
     }

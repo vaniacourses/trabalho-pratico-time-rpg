@@ -140,8 +140,7 @@ class MyAppProviders extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(
-          create: (ctx) =>
-              PersonagensViewModel(personagemRepository: ctx.read()),
+          create: (ctx) => PersonagensViewModel(personagemRepository: ctx.read()),
         ),
         ChangeNotifierProvider(
           create: (ctx) => InimigosViewModel(
@@ -181,15 +180,93 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'RPG Battle Manager',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // Soft Pastel Color Scheme
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFB39DDB), // Muted Lavender (Primary)
+          primary: const Color(0xFFB39DDB), // Muted Lavender
+          primaryContainer: const Color(0xFFD1C4E9), // Lighter Lavender
+          secondary: const Color(0xFF81C784), // Soft Green (Accent)
+          secondaryContainer: const Color(0xFFA5D6A7), // Lighter Soft Green
+          tertiary: const Color(0xFF90CAF9), // Soft Blue
+          surface: const Color(0xFFF5F5F5), // Light Grey (Background for cards/dialogs)
+          background: const Color(0xFFEDE7F6), // Very Light Lavender (Overall background)
+          error: const Color(0xFFEF9A9A), // Soft Red for errors
+          onPrimary: Colors.white,
+          onSecondary: Colors.black87, // Black for text on light green
+          onSurface: Colors.black87, // Black for text on light grey
+          onBackground: Colors.black87, // Black for text on very light lavender
+          onError: Colors.white,
+        ),
         useMaterial3: true,
+        // Card theming for list tiles
+        cardTheme: const CardThemeData(
+          color: Color(0xFFFFFFFF), // Pure White for cards
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+            side: BorderSide(color: Color(0xFFD1C4E9), width: 1.5), // Soft Lavender border
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        ),
+        listTileTheme: ListTileThemeData(
+          iconColor: const Color(0xFF81C784), // Soft Green for icons
+          textColor: Colors.black87,
+          tileColor: Colors.transparent, // Transparent to show card background
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFB39DDB), // Muted Lavender app bar
+          foregroundColor: Colors.white,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.5,
+            color: Colors.white,
+          ),
+        ),
+        tabBarTheme: TabBarThemeData(
+          labelColor: Colors.white, // White for selected tab text
+          unselectedLabelColor: Colors.white70, // Slightly transparent white for unselected
+          indicatorColor: const Color(0xFF81C784), // Soft Green indicator
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: const Color(0xFF81C784), // Soft Green FAB
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+            side: const BorderSide(color: Color(0xFFD1C4E9), width: 2), // Lighter Lavender border
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: const Color(0xFFE0E0E0), // Light Grey for input fields
+          labelStyle: const TextStyle(color: Colors.black54), // Muted black for labels
+          hintStyle: const TextStyle(color: Colors.black38), // Even more muted for hints
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Color(0xFFC5CAE9)), // Soft border
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Color(0xFFC5CAE9)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Color(0xFF81C784), width: 2), // Soft Green focus border
+          ),
+        ),
       ),
       home: const MainPage(),
     );
   }
 }
 
-// MainPage agora é StatefulWidget para gerenciar seu próprio TabController
+// MainPage and other pages remain the same in structure, only inheriting new theme
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -216,20 +293,19 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('RPG Manager'),
+        title: const Text('RPG Battle Manager'),
         bottom: TabBar(
           controller: _mainTabController,
           tabs: const [
-            Tab(icon: Icon(Icons.group), text: 'Fichas'),
-            Tab(icon: Icon(Icons.groups), text: 'Grupos'),
-            Tab(icon: Icon(Icons.settings), text: 'Gerenciamento'),
+            Tab(icon: Icon(Icons.person), text: 'Characters'),
+            Tab(icon: Icon(Icons.castle), text: 'Groups'),
+            Tab(icon: Icon(Icons.auto_stories), text: 'Codex'),
           ],
         ),
       ),
       body: TabBarView(
         controller: _mainTabController,
         children: [
-          // Passamos o TabController da MainPage para a FichasTabPage
           FichasTabPage(mainTabController: _mainTabController),
           GerenciarGruposPage(),
           const GerenciamentoGeralPage(),
@@ -239,7 +315,6 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   }
 }
 
-// FichasTabPage agora também é StatefulWidget para ter seu TabController
 class FichasTabPage extends StatefulWidget {
   final TabController mainTabController;
   const FichasTabPage({super.key, required this.mainTabController});
@@ -269,27 +344,26 @@ class _FichasTabPageState extends State<FichasTabPage>
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: TabBar(
-          controller: _fichasTabController,
-          tabs: const [
-            Tab(text: 'PERSONAGENS'),
-            Tab(text: 'INIMIGOS'),
-          ],
+        child: Material(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: TabBar(
+            controller: _fichasTabController,
+            tabs: const [
+              Tab(text: 'HEROES'),
+              Tab(text: 'FOES'),
+            ],
+          ),
         ),
       ),
       body: TabBarView(
         controller: _fichasTabController,
         children: const [GerenciarPersonagensPage(), GerenciarInimigosPage()],
       ),
-      // O FAB agora usa ambos os controllers para decidir o que fazer
       floatingActionButton: FloatingActionButton(
-        // CORREÇÃO: heroTag único para evitar conflito se outra tela tiver um FAB
         heroTag: 'fichas_fab',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add_box),
         onPressed: () {
-          // Verifica se a aba principal é "Fichas"
           if (widget.mainTabController.index == 0) {
-            // Verifica qual sub-aba ("Personagens" ou "Inimigos") está ativa
             if (_fichasTabController.index == 0) {
               Navigator.push(
                 context,
@@ -315,39 +389,47 @@ class GerenciamentoGeralPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Esta página não precisa de um FAB, pois a criação é feita na outra aba.
     return ListView(
+      padding: const EdgeInsets.all(12.0),
       children: [
-        ListTile(
-          leading: const Icon(Icons.shield),
-          title: const Text('Gerenciar Raças'),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const GerenciarRacasPage()),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.shield_outlined),
+            title: const Text('Manage Races'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GerenciarRacasPage()),
+            ),
           ),
         ),
-        ListTile(
-          leading: const Icon(Icons.star),
-          title: const Text('Gerenciar Classes'),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const GerenciarClassesPage()),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.local_florist),
+            title: const Text('Manage Classes'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GerenciarClassesPage()),
+            ),
           ),
         ),
-        ListTile(
-          leading: const Icon(Icons.hardware),
-          title: const Text('Gerenciar Armas'),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const GerenciarArmasPage()),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.gavel),
+            title: const Text('Manage Weapons'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GerenciarArmasPage()),
+            ),
           ),
         ),
-        ListTile(
-          leading: const Icon(Icons.flash_on),
-          title: const Text('Gerenciar Habilidades'),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const GerenciarHabilidadesPage()),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.auto_awesome),
+            title: const Text('Manage Abilities'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GerenciarHabilidadesPage()),
+            ),
           ),
         ),
       ],

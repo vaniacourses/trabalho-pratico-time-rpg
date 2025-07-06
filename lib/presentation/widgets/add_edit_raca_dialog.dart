@@ -51,14 +51,14 @@ class _AddEditRacaDialogState extends State<AddEditRacaDialog> {
   void _submit() {
     if (_formKey.currentState!.validate()) {
       final Map<String, int> modificadores = {};
-      
+
       void addMod(String key, TextEditingController controller) {
         final value = int.tryParse(controller.text) ?? 0;
         if (value != 0) {
           modificadores[key] = value;
         }
       }
-      
+
       addMod('forca', _forController);
       addMod('destreza', _desController);
       addMod('constituicao', _conController);
@@ -75,17 +75,52 @@ class _AddEditRacaDialogState extends State<AddEditRacaDialog> {
     }
   }
 
+  // Helper method to get thematic icons for attributes
+  IconData _getIconForAttribute(String attributeName) {
+    switch (attributeName.toLowerCase()) {
+      case 'for':
+        return Icons.fitness_center; // Strength
+      case 'des':
+        return Icons.run_circle_outlined; // Dexterity
+      case 'con':
+        return Icons.health_and_safety_outlined; // Constitution
+      case 'int':
+        return Icons.menu_book; // Intelligence
+      case 'sab':
+        return Icons.psychology_outlined; // Wisdom
+      case 'car':
+        return Icons.theater_comedy_outlined; // Charisma
+      default:
+        return Icons.circle;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isEditing = widget.raca != null;
+    final theme = Theme.of(context); // Access the theme
+
     return AlertDialog(
-      title: Text(isEditing ? 'Editar Raça' : 'Adicionar Raça'),
-      // CORREÇÃO: Envolvemos o conteúdo em um Container com tamanho definido
-      // para resolver o conflito de layout.
-      content: Container(
-        width: double.maxFinite, // Ocupa a largura máxima permitida pelo Dialog
-        // Você pode ajustar a altura conforme necessário.
-        height: 300, 
+      backgroundColor: theme.cardTheme.color, // Pure White for dialog background
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+        side: BorderSide(color: theme.colorScheme.primaryContainer, width: 2), // Lighter Lavender border
+      ),
+      title: Text(
+        isEditing ? 'Edit Race' : 'Create New Race',
+        style: TextStyle(
+          color: theme.colorScheme.onSurface, // Black for text
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
+          letterSpacing: 1.2,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      content: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.6,
+        ),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -94,30 +129,65 @@ class _AddEditRacaDialogState extends State<AddEditRacaDialog> {
               children: [
                 TextFormField(
                   controller: _nameController,
-                  decoration: const InputDecoration(labelText: 'Nome da Raça'),
+                  decoration: InputDecoration(
+                    labelText: 'Race Name',
+                    hintText: 'e.g., Elf, Dwarf, Orc',
+                    prefixIcon: Icon(Icons.landscape, color: theme.colorScheme.primary), // Muted Lavender icon
+                    filled: true, // Ensure filled is true as per input decoration theme
+                    fillColor: theme.inputDecorationTheme.fillColor, // Use theme's fill color
+                    border: theme.inputDecorationTheme.border, // Use theme's border
+                    enabledBorder: theme.inputDecorationTheme.enabledBorder,
+                    focusedBorder: theme.inputDecorationTheme.focusedBorder,
+                    labelStyle: theme.inputDecorationTheme.labelStyle, // Use theme's label style
+                    hintStyle: theme.inputDecorationTheme.hintStyle, // Use theme's hint style
+                  ),
+                  style: TextStyle(color: theme.colorScheme.onSurface), // Black text
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Por favor, insira um nome.';
+                      return 'Please enter a race name.';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 20),
-                const Text('Modificadores de Atributo', style: TextStyle(fontWeight: FontWeight.bold)),
-                GridView.count(
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  childAspectRatio: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                Text(
+                  'Attribute Modifiers',
+                  style: TextStyle(
+                    color: theme.colorScheme.onSurface, // Black for text
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 16.0,
+                  runSpacing: 16.0,
+                  alignment: WrapAlignment.center, // Center the items in the wrap
                   children: [
-                    _buildAttributeField('FOR', _forController),
-                    _buildAttributeField('DES', _desController),
-                    _buildAttributeField('CON', _conController),
-                    _buildAttributeField('INT', _intController),
-                    _buildAttributeField('SAB', _sabController),
-                    _buildAttributeField('CAR', _carController),
+                    SizedBox(
+                      width: 100, // Fixed width for consistent layout
+                      child: _buildAttributeField('FOR', _forController, theme),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: _buildAttributeField('DES', _desController, theme),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: _buildAttributeField('CON', _conController, theme),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: _buildAttributeField('INT', _intController, theme),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: _buildAttributeField('SAB', _sabController, theme),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: _buildAttributeField('CAR', _carController, theme),
+                    ),
                   ],
                 ),
               ],
@@ -125,22 +195,60 @@ class _AddEditRacaDialogState extends State<AddEditRacaDialog> {
           ),
         ),
       ),
+      actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancelar')),
-        ElevatedButton(onPressed: _submit, child: Text(isEditing ? 'Salvar' : 'Adicionar')),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          style: TextButton.styleFrom(
+            foregroundColor: theme.colorScheme.onSurface.withOpacity(0.7), // Muted text color for cancel
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: _submit,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: theme.colorScheme.secondary, // Soft Green for Add/Save button
+            foregroundColor: theme.colorScheme.onSecondary, // Text color on green
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 5,
+          ),
+          child: Text(isEditing ? 'Save' : 'Add'),
+        ),
       ],
     );
   }
 
-  Widget _buildAttributeField(String label, TextEditingController controller) {
+  Widget _buildAttributeField(String label, TextEditingController controller, ThemeData theme) {
     return TextFormField(
       controller: controller,
-      decoration: InputDecoration(labelText: label),
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: '0',
+        prefixIcon: Icon(_getIconForAttribute(label), color: theme.colorScheme.primary), // Muted Lavender icon
+        // These will be inherited from the InputDecorationTheme
+        filled: true,
+        fillColor: theme.inputDecorationTheme.fillColor,
+        border: theme.inputDecorationTheme.border,
+        enabledBorder: theme.inputDecorationTheme.enabledBorder,
+        focusedBorder: theme.inputDecorationTheme.focusedBorder,
+        labelStyle: theme.inputDecorationTheme.labelStyle,
+        hintStyle: theme.inputDecorationTheme.hintStyle,
+      ),
       keyboardType: const TextInputType.numberWithOptions(signed: true),
       textAlign: TextAlign.center,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')),
       ],
+      style: TextStyle(color: theme.colorScheme.onSurface), // Black text
+      validator: (value) {
+        if (value == null || int.tryParse(value) == null) {
+          return ''; // Empty string for minimal error feedback in a small field
+        }
+        return null;
+      },
     );
   }
 }

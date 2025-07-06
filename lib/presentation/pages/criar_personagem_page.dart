@@ -20,7 +20,7 @@ class CriarPersonagemPage extends StatefulWidget {
 
 class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
   final _formKey = GlobalKey<FormState>();
-  
+
   final _nomeController = TextEditingController();
   final _nivelController = TextEditingController(text: '1');
   final _forController = TextEditingController(text: '10');
@@ -41,9 +41,7 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
   @override
   void initState() {
     super.initState();
-    
-    // CORREÇÃO: A lógica foi movida para dentro do addPostFrameCallback
-    // para garantir que seja executada após o primeiro build.
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final viewModel = Provider.of<CriarPersonagemViewModel>(
         context,
@@ -57,7 +55,6 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
     });
   }
 
-  // Nova função para organizar o preenchimento do formulário
   void _preencherFormularioParaEdicao(CriarPersonagemViewModel viewModel) {
     final p = widget.personagem!;
     _nomeController.text = p.nome;
@@ -94,7 +91,7 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
       );
     } catch (e) {
       print(
-        "Erro ao pré-selecionar dados (item salvo pode ter sido deletado): $e",
+        "Error pre-selecting data (saved item might have been deleted): $e",
       );
     }
 
@@ -118,7 +115,8 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
     if (_formKey.currentState!.validate()) {
       if (_racaSelecionada == null || _classeSelecionada == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Por favor, selecione uma raça e uma classe.')),
+          const SnackBar(
+              content: Text('Please select a race and a class.')), // Translated
         );
         return;
       }
@@ -155,7 +153,7 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Personagem ${isEditing ? 'atualizado' : 'criado'} com sucesso!',
+              'Character ${isEditing ? 'updated' : 'created'} successfully!', // Translated
             ),
           ),
         );
@@ -164,21 +162,58 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
     }
   }
 
+  // Helper method to get thematic icons for attributes
+  IconData _getIconForAttribute(String attributeLabel) {
+    switch (attributeLabel.toUpperCase()) {
+      case 'FOR':
+        return Icons.fitness_center;
+      case 'DES':
+        return Icons.run_circle_outlined;
+      case 'CON':
+        return Icons.health_and_safety_outlined;
+      case 'INT':
+        return Icons.menu_book;
+      case 'SAB':
+        return Icons.psychology_outlined;
+      case 'CAR':
+        return Icons.theater_comedy_outlined;
+      default:
+        return Icons.circle;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing ? 'Editar Personagem' : 'Criar Novo Personagem'),
+        title: Text(isEditing ? 'Edit Character' : 'Create New Character'), // Translated title
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: theme.appBarTheme.foregroundColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Consumer<CriarPersonagemViewModel>(
         builder: (context, viewModel, child) {
-          // A verificação de 'isLoading' agora precisa ser mais específica
-          // para não mostrar o loading toda vez que o estado do formulário mudar.
           if (viewModel.isLoading && viewModel.racasDisponiveis.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.secondary),
+              ),
+            );
           }
           if (viewModel.error != null) {
-            return Center(child: Text('Erro: ${viewModel.error}'));
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Error: ${viewModel.error}', // Translated error message
+                  style: TextStyle(color: theme.colorScheme.error, fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
           }
 
           return Form(
@@ -186,114 +221,221 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
             child: ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
+                // Character Name
                 TextFormField(
                   controller: _nomeController,
-                  decoration: const InputDecoration(
-                    labelText: 'Nome do Personagem',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: 'Character Name', // Translated label
+                    hintText: 'e.g., Aragorn, Gandalf',
+                    prefixIcon: Icon(Icons.person_pin_outlined, color: theme.colorScheme.primary), // Thematic icon
+                    filled: true,
+                    fillColor: theme.inputDecorationTheme.fillColor,
+                    border: theme.inputDecorationTheme.border,
+                    enabledBorder: theme.inputDecorationTheme.enabledBorder,
+                    focusedBorder: theme.inputDecorationTheme.focusedBorder,
+                    labelStyle: theme.inputDecorationTheme.labelStyle,
+                    hintStyle: theme.inputDecorationTheme.hintStyle,
                   ),
+                  style: TextStyle(color: theme.colorScheme.onBackground), // Text color
                   validator: (v) =>
-                      v!.trim().isEmpty ? 'Campo obrigatório' : null,
+                      v!.trim().isEmpty ? 'Required field' : null, // Translated
                 ),
                 const SizedBox(height: 16),
+
+                // Race Dropdown
                 DropdownButtonFormField<Raca>(
                   value: _racaSelecionada,
-                  decoration: const InputDecoration(
-                    labelText: 'Raça',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: 'Race', // Translated label
+                    prefixIcon: Icon(Icons.groups_3_outlined, color: theme.colorScheme.primary), // Thematic icon
+                    filled: true,
+                    fillColor: theme.inputDecorationTheme.fillColor,
+                    border: theme.inputDecorationTheme.border,
+                    enabledBorder: theme.inputDecorationTheme.enabledBorder,
+                    focusedBorder: theme.inputDecorationTheme.focusedBorder,
+                    labelStyle: theme.inputDecorationTheme.labelStyle,
+                    hintStyle: theme.inputDecorationTheme.hintStyle,
                   ),
                   items: viewModel.racasDisponiveis.map((raca) {
-                    return DropdownMenuItem(value: raca, child: Text(raca.nome));
+                    return DropdownMenuItem(
+                      value: raca,
+                      child: Text(
+                        raca.nome,
+                        style: TextStyle(color: theme.colorScheme.onSurface), // Text color for dropdown items
+                      ),
+                    );
                   }).toList(),
                   onChanged: (value) => setState(() => _racaSelecionada = value),
-                  validator: (v) => v == null ? 'Selecione uma raça' : null,
+                  validator: (v) => v == null ? 'Please select a race' : null, // Translated
+                  dropdownColor: theme.cardTheme.color, // Dropdown background color
+                  style: TextStyle(color: theme.colorScheme.onSurface), // Text color when selected
                 ),
                 const SizedBox(height: 16),
+
+                // Class Dropdown
                 DropdownButtonFormField<ClassePersonagem>(
                   value: _classeSelecionada,
-                  decoration: const InputDecoration(
-                    labelText: 'Classe',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: 'Class', // Translated label
+                    prefixIcon: Icon(Icons.auto_stories_outlined, color: theme.colorScheme.primary), // Thematic icon
+                    filled: true,
+                    fillColor: theme.inputDecorationTheme.fillColor,
+                    border: theme.inputDecorationTheme.border,
+                    enabledBorder: theme.inputDecorationTheme.enabledBorder,
+                    focusedBorder: theme.inputDecorationTheme.focusedBorder,
+                    labelStyle: theme.inputDecorationTheme.labelStyle,
+                    hintStyle: theme.inputDecorationTheme.hintStyle,
                   ),
                   items: viewModel.classesDisponiveis.map((classe) {
-                    return DropdownMenuItem(value: classe, child: Text(classe.nome));
+                    return DropdownMenuItem(
+                      value: classe,
+                      child: Text(
+                        classe.nome,
+                        style: TextStyle(color: theme.colorScheme.onSurface), // Text color for dropdown items
+                      ),
+                    );
                   }).toList(),
                   onChanged: (value) => setState(() => _classeSelecionada = value),
-                  validator: (v) => v == null ? 'Selecione uma classe' : null,
+                  validator: (v) => v == null ? 'Please select a class' : null, // Translated
+                  dropdownColor: theme.cardTheme.color, // Dropdown background color
+                  style: TextStyle(color: theme.colorScheme.onSurface), // Text color when selected
                 ),
                 const SizedBox(height: 16),
+
+                // Level Field
                 TextFormField(
                   controller: _nivelController,
-                  decoration: const InputDecoration(
-                    labelText: 'Nível',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: 'Level', // Translated label
+                    hintText: 'e.g., 1, 5, 10',
+                    prefixIcon: Icon(Icons.bar_chart, color: theme.colorScheme.primary), // Thematic icon
+                    filled: true,
+                    fillColor: theme.inputDecorationTheme.fillColor,
+                    border: theme.inputDecorationTheme.border,
+                    enabledBorder: theme.inputDecorationTheme.enabledBorder,
+                    focusedBorder: theme.inputDecorationTheme.focusedBorder,
+                    labelStyle: theme.inputDecorationTheme.labelStyle,
+                    hintStyle: theme.inputDecorationTheme.hintStyle,
                   ),
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  style: TextStyle(color: theme.colorScheme.onBackground), // Text color
+                  validator: (v) =>
+                      v!.trim().isEmpty || int.tryParse(v) == null ? 'Enter a number' : null, // Translated
                 ),
                 const SizedBox(height: 24),
+
+                // Attributes Section
                 Text(
-                  'Atributos',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  'Attributes', // Translated
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: theme.colorScheme.onBackground,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  childAspectRatio: 1.5,
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildAttributeField('FOR', _forController),
-                    _buildAttributeField('DES', _desController),
-                    _buildAttributeField('CON', _conController),
-                    _buildAttributeField('INT', _intController),
-                    _buildAttributeField('SAB', _sabController),
-                    _buildAttributeField('CAR', _carController),
+                    Expanded(child: _buildAttributeField('FOR', _forController, theme)),
+                    Expanded(child: _buildAttributeField('DES', _desController, theme)),
+                    Expanded(child: _buildAttributeField('CON', _conController, theme)),
+                    Expanded(child: _buildAttributeField('INT', _intController, theme)),
+                    Expanded(child: _buildAttributeField('SAB', _sabController, theme)),
+                    Expanded(child: _buildAttributeField('CAR', _carController, theme)),
                   ],
                 ),
                 const SizedBox(height: 24),
+
+                // Equipment Section
                 Text(
-                  'Equipamentos',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  'Equipment', // Translated
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: theme.colorScheme.onBackground,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                const SizedBox(height: 10),
                 DropdownButtonFormField<Arma>(
                   value: _armaSelecionada,
-                  decoration: const InputDecoration(
-                    labelText: 'Arma',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: 'Weapon', // Translated label
+                    prefixIcon: Icon(Icons.gavel, color: theme.colorScheme.primary), // Thematic icon
+                    filled: true,
+                    fillColor: theme.inputDecorationTheme.fillColor,
+                    border: theme.inputDecorationTheme.border,
+                    enabledBorder: theme.inputDecorationTheme.enabledBorder,
+                    focusedBorder: theme.inputDecorationTheme.focusedBorder,
+                    labelStyle: theme.inputDecorationTheme.labelStyle,
                   ),
                   items: viewModel.armasDisponiveis.map((arma) {
                     return DropdownMenuItem(
                       value: arma,
-                      child: Text(arma.nome),
+                      child: Text(
+                        arma.nome,
+                        style: TextStyle(color: theme.colorScheme.onSurface), // Text color for dropdown items
+                      ),
                     );
                   }).toList(),
-                  onChanged: (value) =>
-                      setState(() => _armaSelecionada = value),
+                  onChanged: (value) => setState(() => _armaSelecionada = value),
+                  dropdownColor: theme.cardTheme.color, // Dropdown background color
+                  style: TextStyle(color: theme.colorScheme.onSurface), // Text color when selected
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<Arma>(
                   value: _armaduraSelecionada,
-                  decoration: const InputDecoration(
-                    labelText: 'Armadura',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: 'Armor', // Translated label
+                    prefixIcon: Icon(Icons.shield, color: theme.colorScheme.primary), // Thematic icon
+                    filled: true,
+                    fillColor: theme.inputDecorationTheme.fillColor,
+                    border: theme.inputDecorationTheme.border,
+                    enabledBorder: theme.inputDecorationTheme.enabledBorder,
+                    focusedBorder: theme.inputDecorationTheme.focusedBorder,
+                    labelStyle: theme.inputDecorationTheme.labelStyle,
                   ),
                   items: viewModel.armasDisponiveis.map((arma) {
                     return DropdownMenuItem(
                       value: arma,
-                      child: Text(arma.nome),
+                      child: Text(
+                        arma.nome,
+                        style: TextStyle(color: theme.colorScheme.onSurface), // Text color for dropdown items
+                      ),
                     );
                   }).toList(),
-                  onChanged: (value) =>
-                      setState(() => _armaduraSelecionada = value),
+                  onChanged: (value) => setState(() => _armaduraSelecionada = value),
+                  dropdownColor: theme.cardTheme.color, // Dropdown background color
+                  style: TextStyle(color: theme.colorScheme.onSurface), // Text color when selected
                 ),
                 const SizedBox(height: 24),
+
+                // Abilities Section
                 ExpansionTile(
                   title: Text(
-                    'Habilidades (${_habilidadesSelecionadasIds.length})',
+                    'Abilities (${_habilidadesSelecionadasIds.length})', // Translated
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      color: theme.colorScheme.onBackground,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  collapsedIconColor: theme.colorScheme.primary, // Icon color when collapsed
+                  iconColor: theme.colorScheme.primary, // Icon color when expanded
+                  backgroundColor: theme.colorScheme.surface, // Background for the tile
+                  collapsedBackgroundColor: theme.colorScheme.surface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(color: theme.colorScheme.primaryContainer, width: 1.5),
                   ),
                   children: viewModel.habilidadesDisponiveis.map((habilidade) {
                     return CheckboxListTile(
-                      title: Text(habilidade.nome),
+                      title: Text(
+                        habilidade.nome,
+                        style: TextStyle(color: theme.colorScheme.onSurface), // Text color
+                      ),
+                      subtitle: Text(
+                        habilidade.descricao,
+                        style: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.7)),
+                      ),
                       value: _habilidadesSelecionadasIds.contains(
                         habilidade.id,
                       ),
@@ -306,21 +448,28 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
                           }
                         });
                       },
+                      activeColor: theme.colorScheme.secondary, // Soft Green checkbox when active
+                      checkColor: Colors.white, // White check mark
                     );
                   }).toList(),
                 ),
                 const SizedBox(height: 24),
+
+                // Submit Button
                 ElevatedButton(
                   onPressed: viewModel.isLoading ? null : _submitForm,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: theme.colorScheme.secondary, // Soft Green button
+                    foregroundColor: theme.colorScheme.onSecondary, // Text color on green
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), // Rounded button
+                    elevation: 5,
                   ),
                   child: viewModel.isLoading
-                      ? const CircularProgressIndicator(color: Colors.white)
+                      ? CircularProgressIndicator(color: theme.colorScheme.onSecondary)
                       : Text(
-                          isEditing ? 'Salvar Alterações' : 'Criar Personagem',
+                          isEditing ? 'Save Changes' : 'Create Character', // Translated
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                 )
               ],
@@ -331,15 +480,61 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
     );
   }
 
-  Widget _buildAttributeField(String label, TextEditingController controller) {
+  Widget _buildAttributeField(
+      String label, TextEditingController controller, ThemeData theme) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
-        keyboardType: TextInputType.number,
-        textAlign: TextAlign.center,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      padding: const EdgeInsets.symmetric(horizontal: 2.0), // Very minimal horizontal padding
+      child: Container(
+        // Removed Card for more direct size control, replaced with Container
+        height: 80, // Explicitly set height for consistency with other input fields
+        decoration: BoxDecoration(
+          color: theme.inputDecorationTheme.fillColor, // Light grey background
+          borderRadius: BorderRadius.circular(8), // Match input field border radius
+          border: Border.all(color: theme.inputDecorationTheme.enabledBorder!.borderSide.color, width: 1), // Thicker border
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // Make the column take minimal vertical space
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(_getIconForAttribute(label), color: theme.colorScheme.primary, size: 24), // Increased icon size slightly
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: theme.inputDecorationTheme.labelStyle?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 11, // Adjusted font size for label
+              ),
+            ),
+            SizedBox(
+              width: 40, // Adjusted width for the text field
+              height: 20, // Adjusted height for the text field
+              child: TextFormField(
+                controller: controller,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0), // Minimal padding
+                  border: InputBorder.none, // No border
+                  hintText: '10',
+                  hintStyle: TextStyle(fontSize: 12), // Adjusted hint font size
+                ),
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.center,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface, // Text color
+                  fontSize: 14, // Adjusted font size for value
+                  fontWeight: FontWeight.w500,
+                ),
+                validator: (value) {
+                  if (value == null || int.tryParse(value) == null) {
+                    return ''; // Minimal validation feedback
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

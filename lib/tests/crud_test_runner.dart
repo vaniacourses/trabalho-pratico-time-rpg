@@ -4,6 +4,7 @@ import 'package:trabalho_rpg/data/factories/personagem_factory_impl.dart';
 import 'package:trabalho_rpg/data/models/habilidades/habilidade_de_dano_model.dart';
 import 'package:trabalho_rpg/data/models/habilidades/habilidade_de_cura_model.dart';
 import 'package:trabalho_rpg/data/repositories/arma_repository_impl.dart';
+import 'package:trabalho_rpg/data/repositories/armadura_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/classe_personagem_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/grupo_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/habilidade_repository_impl.dart';
@@ -11,6 +12,7 @@ import 'package:trabalho_rpg/data/repositories/inimigo_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/personagem_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/raca_repository_impl.dart';
 import 'package:trabalho_rpg/domain/entities/arma.dart';
+import 'package:trabalho_rpg/domain/entities/armadura.dart';
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 import 'package:trabalho_rpg/domain/entities/classe_personagem.dart';
 import 'package:trabalho_rpg/domain/entities/enums/proficiencias.dart';
@@ -27,6 +29,7 @@ class CrudTestRunner {
   final RacaRepositoryImpl racaRepo;
   final ClassePersonagemRepositoryImpl classeRepo;
   final ArmaRepositoryImpl armaRepo;
+  final ArmaduraRepositoryImpl armaduraRepo;
   final HabilidadeRepositoryImpl habilidadeRepo;
   final PersonagemRepositoryImpl personagemRepo;
   final InimigoRepositoryImpl inimigoRepo;
@@ -36,15 +39,22 @@ class CrudTestRunner {
       : racaRepo = RacaRepositoryImpl(dbHelper: dbHelper),
         classeRepo = ClassePersonagemRepositoryImpl(dbHelper: dbHelper),
         armaRepo = ArmaRepositoryImpl(dbHelper: dbHelper),
+        armaduraRepo = ArmaduraRepositoryImpl(dbHelper: dbHelper),
         habilidadeRepo = HabilidadeRepositoryImpl(dbHelper: dbHelper),
         // CORREÇÃO: Injetando a dependência do repositório de habilidades.
         personagemRepo = PersonagemRepositoryImpl(
           dbHelper: dbHelper,
           habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: dbHelper),
+          racaRepository: RacaRepositoryImpl(dbHelper: dbHelper),
+          classeRepository: ClassePersonagemRepositoryImpl(dbHelper: dbHelper),
+          armaRepository: ArmaRepositoryImpl(dbHelper: dbHelper),
+          armaduraRepository: ArmaduraRepositoryImpl(dbHelper: dbHelper),
+          
         ),
         inimigoRepo = InimigoRepositoryImpl(
           dbHelper: dbHelper,
           habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: dbHelper),
+          armaRepository: ArmaRepositoryImpl(dbHelper: dbHelper),
         ),
         uuid = const Uuid();
 
@@ -55,7 +65,7 @@ class CrudTestRunner {
     final racaHumano = Raca(id: uuid.v4(), nome: 'Humano', modificadoresDeAtributo: {'carisma': 1, 'inteligencia': 1});
     final classeGuerreiro = ClassePersonagem(id: uuid.v4(), nome: 'Guerreiro', proficienciaArmadura: ProficienciaArmadura.Pesada, proficienciaArma: ProficienciaArma.Marcial, habilidadesDisponiveis: []);
     final espadaLonga = Arma(id: uuid.v4(), nome: 'Espada Longa', danoBase: 8);
-    final escudoDeAco = Arma(id: uuid.v4(), nome: 'Escudo de Aço', danoBase: 2);
+    final escudoDeAco = Armadura(id: uuid.v4(), nome: 'Escudo de Aço', danoReduzido: 2, proficienciaRequerida: ProficienciaArmadura.Pesada);
     final adaga = Arma(id: uuid.v4(), nome: 'Adaga', danoBase: 4);
 
     // CORREÇÃO: Instanciando as classes concretas de habilidade.
@@ -66,7 +76,7 @@ class CrudTestRunner {
       racaRepo.save(racaHumano),
       classeRepo.save(classeGuerreiro),
       armaRepo.save(espadaLonga),
-      armaRepo.save(escudoDeAco),
+      armaduraRepo.saveArmadura(escudoDeAco),
       armaRepo.save(adaga),
       habilidadeRepo.save(bolaDeFogo),
       habilidadeRepo.save(curaLeve),
@@ -126,11 +136,11 @@ class CrudTestRunner {
 
     print('\n[PASSO 1/5] Criando dados de pré-requisito...');
     final maosMisticas = Arma(id: uuid.v4(), nome: 'Mãos Místicas', danoBase: 12);
-    final peleDePedra = Arma(id: uuid.v4(), nome: 'Pele de Pedra', danoBase: 5);
+    final peleDePedra = Armadura(id: uuid.v4(), nome: 'Pele de Pedra', danoReduzido: 5, proficienciaRequerida: ProficienciaArmadura.Pesada);
     // CORREÇÃO: Instanciando classe concreta
     final baforadaDeFogo = HabilidadeDeDanoModel(id: uuid.v4(), nome: 'Baforada de Fogo', descricao: 'Cospe fogo nos inimigos', custo: 15, nivelExigido: 10, danoBase: 20);
     await armaRepo.save(maosMisticas);
-    await armaRepo.save(peleDePedra);
+    await armaduraRepo.saveArmadura(peleDePedra);
     await habilidadeRepo.save(baforadaDeFogo);
     print('Pré-requisitos salvos no banco.');
 
@@ -298,6 +308,7 @@ class CrudTestRunner {
       classeRepository: classeRepo,
       uuid: uuid,
       armaRepository: armaRepo,
+      armaduraRepository: armaduraRepo,
       habilidadeRepository: habilidadeRepo,
     );
 
@@ -349,6 +360,7 @@ class CrudTestRunner {
     final factory = InimigoFactoryImpl(
       armaRepository: armaRepo,
       habilidadeRepository: habilidadeRepo,
+      armaduraRepository: armaduraRepo,
       uuid: uuid,
     );
 

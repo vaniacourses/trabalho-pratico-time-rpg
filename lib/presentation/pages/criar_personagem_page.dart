@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:trabalho_rpg/domain/entities/arma.dart';
+import 'package:trabalho_rpg/domain/entities/armadura.dart';
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 import 'package:trabalho_rpg/domain/entities/classe_personagem.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
@@ -33,7 +34,7 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
   Raca? _racaSelecionada;
   ClassePersonagem? _classeSelecionada;
   Arma? _armaSelecionada;
-  Arma? _armaduraSelecionada;
+  Armadura? _armaduraSelecionada;
   final Set<String> _habilidadesSelecionadasIds = {};
 
   bool get isEditing => widget.personagem != null;
@@ -81,8 +82,8 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
         );
       }
       if (p.armadura != null) {
-        _armaduraSelecionada = viewModel.armasDisponiveis.firstWhere(
-          (a) => a.id == p.armadura!.id,
+        _armaduraSelecionada = viewModel.armadurasDisponiveis.firstWhere(
+          (arm) => arm.id == p.armadura!.id,
         );
       }
 
@@ -382,7 +383,8 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
                   style: TextStyle(color: theme.colorScheme.onSurface), // Text color when selected
                 ),
                 const SizedBox(height: 16),
-                DropdownButtonFormField<Arma>(
+                // Armor Dropdown (using Armadura type)
+                DropdownButtonFormField<Armadura>( // Type changed to Armadura
                   value: _armaduraSelecionada,
                   decoration: InputDecoration(
                     labelText: 'Armor', // Translated label
@@ -394,11 +396,11 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
                     focusedBorder: theme.inputDecorationTheme.focusedBorder,
                     labelStyle: theme.inputDecorationTheme.labelStyle,
                   ),
-                  items: viewModel.armasDisponiveis.map((arma) {
+                  items: viewModel.armadurasDisponiveis.map((armadura) { // Using armadurasDisponiveis
                     return DropdownMenuItem(
-                      value: arma,
+                      value: armadura,
                       child: Text(
-                        arma.nome,
+                        armadura.nome,
                         style: TextStyle(color: theme.colorScheme.onSurface), // Text color for dropdown items
                       ),
                     );
@@ -485,7 +487,6 @@ class _CriarPersonagemPageState extends State<CriarPersonagemPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0), // Very minimal horizontal padding
       child: Container(
-        // Removed Card for more direct size control, replaced with Container
         height: 80, // Explicitly set height for consistency with other input fields
         decoration: BoxDecoration(
           color: theme.inputDecorationTheme.fillColor, // Light grey background

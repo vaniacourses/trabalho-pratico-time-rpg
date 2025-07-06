@@ -1,5 +1,6 @@
 import 'package:trabalho_rpg/data/models/arma_model.dart';
 import 'package:trabalho_rpg/domain/entities/arma.dart';
+import 'package:trabalho_rpg/domain/entities/armadura.dart';
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
 import 'package:trabalho_rpg/domain/entities/inimigo.dart';
@@ -22,7 +23,7 @@ class InimigoModel extends Inimigo {
   factory InimigoModel.fromMap(
     Map<String, dynamic> map, {
     Arma? arma,
-    Arma? armadura,
+    Armadura? armadura,
     List<Habilidade> habilidades = const [],
   }) {
     return InimigoModel(

@@ -11,7 +11,7 @@ class Armadura {
 
   /// O valor fixo de dano que esta armadura absorve de cada ataque.
   final int danoReduzido;
-  
+
   /// O nível de proficiência necessário para que um personagem
   /// possa usar esta armadura e se beneficiar da sua redução de dano.
   final ProficienciaArmadura proficienciaRequerida;
@@ -22,4 +22,19 @@ class Armadura {
     required this.danoReduzido,
     required this.proficienciaRequerida,
   });
+
+  // Added for convenience in update operations
+  Armadura copyWith({
+    String? id,
+    String? nome,
+    int? danoReduzido,
+    ProficienciaArmadura? proficienciaRequerida,
+  }) {
+    return Armadura(
+      id: id ?? this.id,
+      nome: nome ?? this.nome,
+      danoReduzido: danoReduzido ?? this.danoReduzido,
+      proficienciaRequerida: proficienciaRequerida ?? this.proficienciaRequerida,
+    );
+  }
 }

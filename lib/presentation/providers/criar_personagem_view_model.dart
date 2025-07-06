@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:trabalho_rpg/domain/entities/arma.dart';
+import 'package:trabalho_rpg/domain/entities/armadura.dart';
 import 'package:trabalho_rpg/domain/entities/classe_personagem.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
@@ -7,6 +8,7 @@ import 'package:trabalho_rpg/domain/entities/raca.dart';
 import 'package:trabalho_rpg/domain/factories/ficha_factory.dart';
 import 'package:trabalho_rpg/domain/factories/personagem_params.dart';
 import 'package:trabalho_rpg/domain/repositories/i_arma_repository.dart';
+import 'package:trabalho_rpg/domain/repositories/i_armadura_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_classe_personagem_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_habilidade_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_personagem_repository.dart';
@@ -16,6 +18,7 @@ class CriarPersonagemViewModel extends ChangeNotifier {
   final IRacaRepository _racaRepository;
   final IClassePersonagemRepository _classeRepository;
   final IArmaRepository _armaRepository;
+  final IArmaduraRepository _armaduraRepository;
   final IHabilidadeRepository _habilidadeRepository;
   final IPersonagemRepository _personagemRepository;
   final IFichaFactory _fichaFactory;
@@ -24,12 +27,14 @@ class CriarPersonagemViewModel extends ChangeNotifier {
     required IRacaRepository racaRepository,
     required IClassePersonagemRepository classeRepository,
     required IArmaRepository armaRepository,
+    required IArmaduraRepository armaduraRepository,
     required IHabilidadeRepository habilidadeRepository,
     required IPersonagemRepository personagemRepository,
     required IFichaFactory fichaFactory,
   })  : _racaRepository = racaRepository,
         _classeRepository = classeRepository,
         _armaRepository = armaRepository,
+        _armaduraRepository = armaduraRepository,
         _habilidadeRepository = habilidadeRepository,
         _personagemRepository = personagemRepository,
         _fichaFactory = fichaFactory;
@@ -45,10 +50,12 @@ class CriarPersonagemViewModel extends ChangeNotifier {
 
   List<ClassePersonagem> _classesDisponiveis = [];
   List<ClassePersonagem> get classesDisponiveis => _classesDisponiveis;
-  
-  // ATUALIZAÇÃO: Novas listas para as opções
+
   List<Arma> _armasDisponiveis = [];
   List<Arma> get armasDisponiveis => _armasDisponiveis;
+
+  List<Armadura> _armadurasDisponiveis = [];
+  List<Armadura> get armadurasDisponiveis => _armadurasDisponiveis;
 
   List<Habilidade> _habilidadesDisponiveis = [];
   List<Habilidade> get habilidadesDisponiveis => _habilidadesDisponiveis;
@@ -58,26 +65,27 @@ class CriarPersonagemViewModel extends ChangeNotifier {
     _error = null;
     notifyListeners();
     try {
-      // ATUALIZAÇÃO: Carrega todas as opções necessárias em paralelo
       final results = await Future.wait([
         _racaRepository.getAll(),
         _classeRepository.getAll(),
-        _armaRepository.getAll(),
+        _armaRepository.getAll(), // Correct method name
+        _armaduraRepository.getAllArmaduras(), // Correct method name
         _habilidadeRepository.getAll(),
       ]);
       _racasDisponiveis = results[0] as List<Raca>;
       _classesDisponiveis = results[1] as List<ClassePersonagem>;
       _armasDisponiveis = results[2] as List<Arma>;
-      _habilidadesDisponiveis = results[3] as List<Habilidade>;
+      _armadurasDisponiveis = results[3] as List<Armadura>;
+      _habilidadesDisponiveis = results[4] as List<Habilidade>;
     } catch (e) {
-      _error = "Falha ao carregar opções: ${e.toString()}";
+      _error = "Failed to load options: ${e.toString()}";
+      debugPrint('Error loading initial data: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  // ATUALIZAÇÃO: O método agora recebe o ID opcional para edição
   Future<bool> criarOuAtualizarPersonagem(
     PersonagemParams params, {
     String? id,
@@ -92,12 +100,13 @@ class CriarPersonagemViewModel extends ChangeNotifier {
         id: id,
       );
       await _personagemRepository.save(personagem);
-      
+
       _isLoading = false;
       notifyListeners();
       return true;
     } catch (e) {
-      _error = "Falha ao salvar personagem: ${e.toString()}";
+      _error = "Failed to save character: ${e.toString()}";
+      debugPrint('Error saving character: $e');
       _isLoading = false;
       notifyListeners();
       return false;

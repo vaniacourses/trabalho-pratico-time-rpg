@@ -1,4 +1,5 @@
 import 'package:trabalho_rpg/domain/entities/arma.dart';
+import 'package:trabalho_rpg/domain/entities/armadura.dart';
 import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
@@ -29,7 +30,7 @@ class PersonagemModel extends Personagem {
     required ClassePersonagemModel classe,
     // Os campos opcionais agora são passados aqui
     Arma? arma,
-    Arma? armadura,
+    Armadura? armadura,
     // As listas serão preenchidas pelo repositório após a busca principal
     List<Habilidade> habilidadesConhecidas = const [],
     List<Habilidade> habilidadesPreparadas = const [],

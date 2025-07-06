@@ -1,4 +1,5 @@
 import 'package:trabalho_rpg/domain/entities/arma.dart';
+import 'package:trabalho_rpg/domain/entities/armadura.dart'; // Import Armadura
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
 import 'package:trabalho_rpg/domain/entities/inimigo.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
@@ -6,6 +7,7 @@ import 'package:trabalho_rpg/domain/factories/inimigo_params.dart';
 import 'package:trabalho_rpg/domain/factories/personagem_params.dart';
 import 'package:trabalho_rpg/domain/factories/ficha_factory.dart';
 import 'package:trabalho_rpg/domain/repositories/i_arma_repository.dart';
+import 'package:trabalho_rpg/domain/repositories/i_armadura_repository.dart'; // Import IArmaduraRepository
 import 'package:trabalho_rpg/domain/repositories/i_classe_personagem_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_habilidade_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_raca_repository.dart';
@@ -14,22 +16,24 @@ import 'package:uuid/uuid.dart';
 class PersonagemFactoryImpl implements IFichaFactory {
   final IRacaRepository _racaRepository;
   final IClassePersonagemRepository _classeRepository;
-  // CORREÇÃO: Adicionando os repositórios que faltavam
   final IArmaRepository _armaRepository;
+  final IArmaduraRepository _armaduraRepository; // Declare ArmaduraRepository
   final IHabilidadeRepository _habilidadeRepository;
   final Uuid _uuid;
 
-  // CORREÇÃO: Construtor atualizado para receber todas as dependências.
+  // CONSTRUCTOR: Ensure all parameters are named and explicitly typed as 'required'
   PersonagemFactoryImpl({
     required IRacaRepository racaRepository,
     required IClassePersonagemRepository classeRepository,
     required IArmaRepository armaRepository,
+    required IArmaduraRepository armaduraRepository, // Added to constructor
     required IHabilidadeRepository habilidadeRepository,
     required Uuid uuid,
   })  : _racaRepository = racaRepository,
         _classeRepository = classeRepository,
-       _armaRepository = armaRepository,
-       _habilidadeRepository = habilidadeRepository,
+        _armaRepository = armaRepository,
+        _armaduraRepository = armaduraRepository, // Assign it
+        _habilidadeRepository = habilidadeRepository,
         _uuid = uuid;
 
   @override
@@ -37,23 +41,23 @@ class PersonagemFactoryImpl implements IFichaFactory {
     PersonagemParams params, {
     String? id,
   }) async {
-    // 1. Busca as entidades complexas obrigatórias.
     final raca = await _racaRepository.getById(params.racaId);
     final classe = await _classeRepository.getById(params.classeId);
 
-    if (raca == null)
+    if (raca == null) {
       throw Exception('Raça com ID ${params.racaId} não encontrada.');
-    if (classe == null)
+    }
+    if (classe == null) {
       throw Exception('Classe com ID ${params.classeId} não encontrada.');
+    }
 
-    // 2. Busca as dependências opcionais (armas, habilidades).
     Arma? arma;
     if (params.armaId != null) {
       arma = await _armaRepository.getById(params.armaId!);
     }
-    Arma? armadura;
+    Armadura? armadura;
     if (params.armaduraId != null) {
-      armadura = await _armaRepository.getById(params.armaduraId!);
+      armadura = await _armaduraRepository.getArmaduraById(params.armaduraId!); // Corrected repo call
     }
 
     List<Habilidade> habilidadesConhecidas = [];
@@ -61,19 +65,16 @@ class PersonagemFactoryImpl implements IFichaFactory {
       final hab = await _habilidadeRepository.getById(habId);
       if (hab != null) habilidadesConhecidas.add(hab);
     }
-    
-    // Simplificação: no futuro, a lista de preparadas seria um subconjunto das conhecidas.
+
     List<Habilidade> habilidadesPreparadas = [];
     for (final habId in params.habilidadesPreparadasIds) {
       final hab = await _habilidadeRepository.getById(habId);
       if (hab != null) habilidadesPreparadas.add(hab);
     }
 
-    // 3. Lógica de Negócio para calcular valores derivados.
     final vidaMax = 10 + (params.atributos.constituicao * params.nivel);
     final classeArmadura = 10 + params.atributos.destreza;
 
-    // 4. Cria e retorna a instância final de Personagem.
     return Personagem(
       id: id ?? _uuid.v4(),
       nome: params.nome,
@@ -87,7 +88,7 @@ class PersonagemFactoryImpl implements IFichaFactory {
       armadura: armadura,
       habilidadesConhecidas: habilidadesConhecidas,
       habilidadesPreparadas: habilidadesPreparadas,
-      equipamentos: {}, // Lógica de equipamentos pode ser adicionada aqui
+      equipamentos: {},
     );
   }
 

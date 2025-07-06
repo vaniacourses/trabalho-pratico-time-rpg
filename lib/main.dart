@@ -5,6 +5,7 @@ import 'package:trabalho_rpg/data/datasources/database_helper.dart';
 import 'package:trabalho_rpg/data/factories/inimigo_factory_impl.dart';
 import 'package:trabalho_rpg/data/factories/personagem_factory_impl.dart';
 import 'package:trabalho_rpg/data/repositories/arma_repository_impl.dart';
+import 'package:trabalho_rpg/data/repositories/armadura_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/classe_personagem_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/grupo_repository_impl.dart';
 import 'package:trabalho_rpg/data/repositories/habilidade_repository_impl.dart';
@@ -15,6 +16,7 @@ import 'package:trabalho_rpg/domain/entities/inimigo.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
 import 'package:trabalho_rpg/domain/factories/ficha_factory.dart';
 import 'package:trabalho_rpg/domain/repositories/i_arma_repository.dart';
+import 'package:trabalho_rpg/domain/repositories/i_armadura_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_classe_personagem_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_grupo_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_habilidade_repository.dart';
@@ -24,6 +26,7 @@ import 'package:trabalho_rpg/domain/repositories/i_raca_repository.dart';
 import 'package:trabalho_rpg/presentation/pages/criar_editar_inimigo_page.dart';
 import 'package:trabalho_rpg/presentation/pages/criar_personagem_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_armas_page.dart';
+import 'package:trabalho_rpg/presentation/pages/gerenciar_armaduras_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_classes_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_grupos_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_habilidades_page.dart';
@@ -31,6 +34,7 @@ import 'package:trabalho_rpg/presentation/pages/gerenciar_inimigos_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_personagens_page.dart';
 import 'package:trabalho_rpg/presentation/pages/gerenciar_racas_page.dart';
 import 'package:trabalho_rpg/presentation/providers/armas_view_model.dart';
+import 'package:trabalho_rpg/presentation/providers/armaduras_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/classes_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/criar_personagem_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/grupos_view_model.dart';
@@ -58,105 +62,141 @@ class MyAppProviders extends StatelessWidget {
         ProxyProvider<DatabaseHelper, IRacaRepository>(
           update: (_, db, __) => RacaRepositoryImpl(dbHelper: db),
         ),
-        ProxyProvider<DatabaseHelper, IGrupoRepository<Personagem>>(
-          update: (_, db, __) => GrupoRepositoryImpl<Personagem>(
-            dbHelper: db,
-            personagemRepository: PersonagemRepositoryImpl(
-              dbHelper: db,
-              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
-            ),
-            inimigoRepository: InimigoRepositoryImpl(
-              dbHelper: db,
-              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
-            ),
-          ),
-        ),
-        ProxyProvider<DatabaseHelper, IGrupoRepository<Inimigo>>(
-          update: (_, db, __) => GrupoRepositoryImpl<Inimigo>(
-            dbHelper: db,
-            personagemRepository: PersonagemRepositoryImpl(
-              dbHelper: db,
-              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
-            ),
-            inimigoRepository: InimigoRepositoryImpl(
-              dbHelper: db,
-              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
-            ),
-          ),
-        ),
-        ProxyProvider<DatabaseHelper, IClassePersonagemRepository>(
-          update: (_, db, __) => ClassePersonagemRepositoryImpl(dbHelper: db),
-        ),
+        // Define PersonagemRepositoryImpl and InimigoRepositoryImpl here first,
+        // so they can be injected into GroupRepositoryImpl later.
         ProxyProvider<DatabaseHelper, IArmaRepository>(
           update: (_, db, __) => ArmaRepositoryImpl(dbHelper: db),
+        ),
+        ProxyProvider<DatabaseHelper, IArmaduraRepository>(
+          update: (_, db, __) => ArmaduraRepositoryImpl(dbHelper: db),
         ),
         ProxyProvider<DatabaseHelper, IHabilidadeRepository>(
           update: (_, db, __) => HabilidadeRepositoryImpl(dbHelper: db),
         ),
-        ProxyProvider<DatabaseHelper, IPersonagemRepository>(
-          update: (_, db, __) => PersonagemRepositoryImpl(
+        ProxyProvider<DatabaseHelper, IClassePersonagemRepository>(
+          update: (_, db, __) => ClassePersonagemRepositoryImpl(dbHelper: db),
+        ),
+        ProxyProvider3<DatabaseHelper, IArmaRepository, IArmaduraRepository, IPersonagemRepository>(
+          update: (_, db, armaRepo, armaduraRepo, __) => PersonagemRepositoryImpl(
             dbHelper: db,
             habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
+            racaRepository: RacaRepositoryImpl(dbHelper: db),
+            classeRepository: ClassePersonagemRepositoryImpl(dbHelper: db),
+            armaRepository: armaRepo, // Injected
+            armaduraRepository: armaduraRepo, // Injected
           ),
         ),
-        ProxyProvider<DatabaseHelper, IInimigoRepository>(
-          update: (_, db, __) => InimigoRepositoryImpl(
+        ProxyProvider3<DatabaseHelper, IArmaRepository, IHabilidadeRepository, IInimigoRepository>(
+          update: (_, db, armaRepo, habilidadeRepo, __) => InimigoRepositoryImpl(
             dbHelper: db,
-            habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
+            habilidadeRepository: habilidadeRepo, // Injected
+            armaRepository: armaRepo as ArmaRepositoryImpl, // Cast to ArmaRepositoryImpl
+            // If InimigoRepositoryImpl constructor truly needs more repos like Armadura, add them here.
+            // Based on previous provided InimigoRepositoryImpl, it needs arma and habilidade.
           ),
         ),
+
+        // Group Repositories now read the already defined PersonagemRepository and InimigoRepository
+        ProxyProvider2<DatabaseHelper, IPersonagemRepository, IGrupoRepository<Personagem>>(
+          update: (_, db, personagemRepo, __) => GrupoRepositoryImpl<Personagem>(
+            dbHelper: db,
+            personagemRepository: personagemRepo,
+            // If InimigoRepository is complex and needs a specific instance, define it once and read it.
+            // For now, it creates a new instance (less ideal, but works for simple cases).
+            inimigoRepository: InimigoRepositoryImpl(
+              dbHelper: db,
+              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
+              armaRepository: ArmaRepositoryImpl(dbHelper: db), // Add if constructor needs it
+            ),
+          ),
+        ),
+        ProxyProvider2<DatabaseHelper, IInimigoRepository, IGrupoRepository<Inimigo>>(
+          update: (_, db, inimigoRepo, __) => GrupoRepositoryImpl<Inimigo>(
+            dbHelper: db,
+            personagemRepository: PersonagemRepositoryImpl( // This creates a new PersonagemRepositoryImpl again
+              dbHelper: db,
+              habilidadeRepository: HabilidadeRepositoryImpl(dbHelper: db),
+              racaRepository: RacaRepositoryImpl(dbHelper: db),
+              classeRepository: ClassePersonagemRepositoryImpl(dbHelper: db),
+              armaRepository: ArmaRepositoryImpl(dbHelper: db),
+              armaduraRepository: ArmaduraRepositoryImpl(dbHelper: db),
+            ),
+            inimigoRepository: inimigoRepo,
+          ),
+        ),
+
+        // Factories need all their dependencies explicitly typed as well
         Provider<PersonagemFactoryImpl>(
           create: (ctx) => PersonagemFactoryImpl(
-            racaRepository: ctx.read(),
-            classeRepository: ctx.read(),
-            armaRepository: ctx.read(),
-            habilidadeRepository: ctx.read(),
-            uuid: ctx.read(),
+            racaRepository: ctx.read<IRacaRepository>(),
+            classeRepository: ctx.read<IClassePersonagemRepository>(),
+            armaRepository: ctx.read<IArmaRepository>(),
+            armaduraRepository: ctx.read<IArmaduraRepository>(), // Added missing arg
+            habilidadeRepository: ctx.read<IHabilidadeRepository>(),
+            uuid: ctx.read<Uuid>(),
           ),
         ),
         Provider<InimigoFactoryImpl>(
           create: (ctx) => InimigoFactoryImpl(
-            armaRepository: ctx.read(),
-            habilidadeRepository: ctx.read(),
-            uuid: ctx.read(),
+            armaRepository: ctx.read<IArmaRepository>(),
+            armaduraRepository: ctx.read<IArmaduraRepository>(), // Added missing arg based on assumed constructor
+            habilidadeRepository: ctx.read<IHabilidadeRepository>(),
+            uuid: ctx.read<Uuid>(),
+          ),
+        ),
+
+        // ViewModels with explicit types
+        ChangeNotifierProvider(
+          create: (ctx) => RacasViewModel(
+            racaRepository: ctx.read<IRacaRepository>(),
+            uuid: ctx.read<Uuid>(),
           ),
         ),
         ChangeNotifierProvider(
-          create: (ctx) =>
-              RacasViewModel(racaRepository: ctx.read(), uuid: ctx.read()),
+          create: (ctx) => ClassesViewModel(
+            classeRepository: ctx.read<IClassePersonagemRepository>(),
+            uuid: ctx.read<Uuid>(),
+          ),
         ),
         ChangeNotifierProvider(
-          create: (ctx) =>
-              ClassesViewModel(classeRepository: ctx.read(), uuid: ctx.read()),
+          create: (ctx) => ArmasViewModel(
+            armaRepository: ctx.read<IArmaRepository>(),
+            uuid: ctx.read<Uuid>(),
+          ),
         ),
         ChangeNotifierProvider(
-          create: (ctx) =>
-              ArmasViewModel(armaRepository: ctx.read(), uuid: ctx.read()),
+          create: (ctx) => ArmadurasViewModel(
+            armaduraRepository: ctx.read<IArmaduraRepository>(),
+            uuid: ctx.read<Uuid>(),
+          ),
         ),
         ChangeNotifierProvider(
           create: (ctx) => HabilidadesViewModel(
-            habilidadeRepository: ctx.read(),
-            uuid: ctx.read(),
+            habilidadeRepository: ctx.read<IHabilidadeRepository>(),
+            uuid: ctx.read<Uuid>(),
           ),
         ),
         ChangeNotifierProvider(
-          create: (ctx) => PersonagensViewModel(personagemRepository: ctx.read()),
+          create: (ctx) => PersonagensViewModel(
+            personagemRepository: ctx.read<IPersonagemRepository>(),
+          ),
         ),
         ChangeNotifierProvider(
           create: (ctx) => InimigosViewModel(
-            inimigoRepository: ctx.read(),
-            inimigoFactory: ctx.read(),
-            armaRepository: ctx.read(),
-            habilidadeRepository: ctx.read(),
+            inimigoRepository: ctx.read<IInimigoRepository>(),
+            inimigoFactory: ctx.read<InimigoFactoryImpl>(),
+            armaRepository: ctx.read<IArmaRepository>(),
+            habilidadeRepository: ctx.read<IHabilidadeRepository>(),
           ),
         ),
         ChangeNotifierProvider(
           create: (ctx) => CriarPersonagemViewModel(
-            racaRepository: ctx.read(),
-            classeRepository: ctx.read(),
-            armaRepository: ctx.read(),
-            habilidadeRepository: ctx.read(),
-            personagemRepository: ctx.read(),
+            racaRepository: ctx.read<IRacaRepository>(),
+            classeRepository: ctx.read<IClassePersonagemRepository>(),
+            armaRepository: ctx.read<IArmaRepository>(),
+            armaduraRepository: ctx.read<IArmaduraRepository>(),
+            habilidadeRepository: ctx.read<IHabilidadeRepository>(),
+            personagemRepository: ctx.read<IPersonagemRepository>(),
             fichaFactory: ctx.read<PersonagemFactoryImpl>(),
           ),
         ),
@@ -404,7 +444,7 @@ class GerenciamentoGeralPage extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            leading: const Icon(Icons.local_florist),
+            leading: const Icon(Icons.star),
             title: const Text('Manage Classes'),
             onTap: () => Navigator.push(
               context,
@@ -414,7 +454,7 @@ class GerenciamentoGeralPage extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            leading: const Icon(Icons.gavel),
+            leading: const Icon(Icons.hardware),
             title: const Text('Manage Weapons'),
             onTap: () => Navigator.push(
               context,
@@ -424,7 +464,17 @@ class GerenciamentoGeralPage extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            leading: const Icon(Icons.auto_awesome),
+            leading: const Icon(Icons.military_tech),
+            title: const Text('Manage Armors'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GerenciarArmadurasPage()),
+            ),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.flash_on),
             title: const Text('Manage Abilities'),
             onTap: () => Navigator.push(
               context,

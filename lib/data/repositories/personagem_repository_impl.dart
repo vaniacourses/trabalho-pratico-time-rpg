@@ -1,236 +1,260 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:trabalho_rpg/data/datasources/database_helper.dart';
-import 'package:trabalho_rpg/data/exceptions/datasource_exception.dart';
-import 'package:trabalho_rpg/data/models/arma_model.dart';
-import 'package:trabalho_rpg/data/models/classe_personagem_model.dart';
-import 'package:trabalho_rpg/data/models/personagem_model.dart';
-import 'package:trabalho_rpg/data/models/raca_model.dart';
 import 'package:trabalho_rpg/domain/entities/arma.dart';
+import 'package:trabalho_rpg/domain/entities/armadura.dart';
+import 'package:trabalho_rpg/domain/entities/atributos_base.dart';
+import 'package:trabalho_rpg/domain/entities/classe_personagem.dart';
 import 'package:trabalho_rpg/domain/entities/habilidade.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
+import 'package:trabalho_rpg/domain/entities/raca.dart';
+import 'package:trabalho_rpg/domain/repositories/i_arma_repository.dart';
+import 'package:trabalho_rpg/domain/repositories/i_armadura_repository.dart';
+import 'package:trabalho_rpg/domain/repositories/i_classe_personagem_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_habilidade_repository.dart';
 import 'package:trabalho_rpg/domain/repositories/i_personagem_repository.dart';
+import 'package:trabalho_rpg/domain/repositories/i_raca_repository.dart';
 
 class PersonagemRepositoryImpl implements IPersonagemRepository {
-  final DatabaseHelper _dbHelper;
-  // CORREÇÃO: Adicionada a dependência do repositório de habilidades.
-  final IHabilidadeRepository _habilidadeRepository;
+  final DatabaseHelper dbHelper;
+  final IHabilidadeRepository habilidadeRepository;
+  final IRacaRepository racaRepository;
+  final IClassePersonagemRepository classeRepository;
+  final IArmaRepository armaRepository;
+  final IArmaduraRepository armaduraRepository;
 
   PersonagemRepositoryImpl({
-    required DatabaseHelper dbHelper,
-    required IHabilidadeRepository habilidadeRepository,
-  }) : _dbHelper = dbHelper,
-       _habilidadeRepository = habilidadeRepository;
+    required this.dbHelper,
+    required this.habilidadeRepository,
+    required this.racaRepository,
+    required this.classeRepository,
+    required this.armaRepository,
+    required this.armaduraRepository,
+  });
 
   @override
-  Future<void> save(Personagem personagem) async {
-    final db = await _dbHelper.database;
+  Future<List<Personagem>> getAll() async {
+    final db = await dbHelper.database;
+    final List<Map<String, dynamic>> maps = await db.query('personagens');
+    final List<Personagem> personagens = [];
 
-    await db.transaction((txn) async {
-      try {
-        final personagemModel = PersonagemModel(
-          id: personagem.id,
-          nome: personagem.nome,
-          nivel: personagem.nivel,
-          vidaMax: personagem.vidaMax,
-          classeArmadura: personagem.classeArmadura,
-          atributosBase: personagem.atributosBase,
-          raca: personagem.raca,
-          classe: personagem.classe,
-          arma: personagem.arma,
-          armadura: personagem.armadura,
-          habilidadesConhecidas: [],
-          habilidadesPreparadas: [],
-          equipamentos: {},
-        );
-        await txn.insert(
-          'personagens',
-          personagemModel.toMap(),
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
-        
-        final Map<String, String> habilidadesParaSalvar = {};
-        for (var habilidade in personagem.habilidadesConhecidas) {
-          habilidadesParaSalvar[habilidade.id] = 'conhecida';
-        }
-        for (var habilidade in personagem.habilidadesPreparadas) {
-          habilidadesParaSalvar[habilidade.id] = 'preparada';
-        }
+    for (var map in maps) {
+      // Ensure IDs are correctly cast to String
+      final String? racaId = map['racaId'] as String?;
+      final String? classeId = map['classeId'] as String?;
+      final String? armaId = map['armaId'] as String?;
+      final String? armaduraId = map['armaduraId'] as String?;
+      final String id = map['id'] as String;
 
-        await txn.delete(
-          'combatente_habilidades',
-          where: 'combatenteId = ?',
-          whereArgs: [personagem.id],
-        );
+      // Fetch required entities (Raca, Classe)
+      final Raca? raca = racaId != null ? await racaRepository.getById(racaId) : null;
+      final ClassePersonagem? classe = classeId != null ? await classeRepository.getById(classeId) : null;
 
-        for (var entry in habilidadesParaSalvar.entries) {
-          await txn.insert('combatente_habilidades', {
-            'combatenteId': personagem.id,
-            'habilidadeId': entry.key,
-            'tipo': entry.value,
-          });
-        }
-
-        await txn.delete(
-          'combatente_equipamentos',
-          where: 'combatenteId = ?',
-          whereArgs: [personagem.id],
-        );
-
-        for (var entry in personagem.equipamentos.entries) {
-          await txn.insert('combatente_equipamentos', {
-            'combatenteId': personagem.id,
-            'armaId': entry.value.id,
-            'slot': entry.key,
-          });
-        }
-      } catch (e) {
-        throw DatasourceException(
-          message: 'Falha ao salvar o personagem e suas relações.',
-          originalException: e,
-        );
+      if (raca == null) {
+        // Log a warning or handle as needed, but this character might be invalid
+        print('Skipping character ${map['nome']} (ID: $id) due to missing Race (ID: $racaId).');
+        continue; // Skip this character if its required Raca is missing
       }
-    });
+      if (classe == null) {
+        print('Skipping character ${map['nome']} (ID: $id) due to missing Class (ID: $classeId).');
+        continue; // Skip this character if its required Classe is missing
+      }
+
+      // Fetch optional entities (Arma, Armadura)
+      Arma? arma;
+      if (armaId != null) {
+        arma = await armaRepository.getById(armaId);
+        if (arma == null) {
+          print('Warning: Character ${map['nome']} (ID: $id) has missing Weapon (ID: $armaId).');
+        }
+      }
+
+      Armadura? armadura;
+      if (armaduraId != null) {
+        armadura = await armaduraRepository.getArmaduraById(armaduraId);
+        if (armadura == null) {
+          print('Warning: Character ${map['nome']} (ID: $id) has missing Armor (ID: $armaduraId).');
+        }
+      }
+
+      final habilidadesData = await habilidadeRepository.getAllForCombatente(id);
+      final List<Habilidade> habilidadesConhecidas = habilidadesData['known'] ?? [];
+      final List<Habilidade> habilidadesPreparadas = habilidadesData['prepared'] ?? [];
+
+      personagens.add(Personagem(
+        id: id,
+        nome: map['nome'] as String,
+        nivel: map['nivel'] as int,
+        vidaMax: map['vidaMax'] as int,
+        classeArmadura: map['classeArmadura'] as int,
+        raca: raca, // Raca is guaranteed non-null here
+        classe: classe, // Classe is guaranteed non-null here
+        atributosBase: AtributosBase(
+          forca: map['forca'] as int,
+          destreza: map['destreza'] as int,
+          constituicao: map['constituicao'] as int,
+          inteligencia: map['inteligencia'] as int,
+          sabedoria: map['sabedoria'] as int,
+          carisma: map['carisma'] as int,
+        ),
+        arma: arma, // Can be null
+        armadura: armadura, // Can be null
+        habilidadesConhecidas: habilidadesConhecidas,
+        habilidadesPreparadas: habilidadesPreparadas,
+        equipamentos: {}, // Assuming this remains an empty map unless populated elsewhere
+      ));
+    }
+    return personagens;
   }
 
   @override
   Future<Personagem?> getById(String id) async {
-    try {
-      final db = await _dbHelper.database;
-      
-      const String sql = '''
-        SELECT p.*,
-          r.nome as racaNome, r.modificadoresDeAtributo,
-          c.nome as classeNome, c.proficienciaArmadura as classeProficienciaArmadura, c.proficienciaArma as classeProficienciaArma,
-          arma.id as armaId, arma.nome as armaNome, arma.danoBase as armaDanoBase,
-          armadura.id as armaduraId, armadura.nome as armaduraNome, armadura.danoBase as armaduraDanoBase
-        FROM personagens p
-        JOIN racas r ON p.racaId = r.id
-        JOIN classes_personagem c ON p.classeId = c.id
-        LEFT JOIN armas arma ON p.armaId = arma.id
-        LEFT JOIN armas armadura ON p.armaduraId = armadura.id
-        WHERE p.id = ?
-      ''';
-      final List<Map<String, dynamic>> maps = await db.rawQuery(sql, [id]);
+    final db = await dbHelper.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'personagens',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
 
-      if (maps.isEmpty) return null;
+    if (maps.isNotEmpty) {
+      final map = maps.first;
+      final String? racaId = map['racaId'] as String?;
+      final String? classeId = map['classeId'] as String?;
+      final String? armaId = map['armaId'] as String?;
+      final String? armaduraId = map['armaduraId'] as String?;
 
-      final personagemMap = maps.first;
+      final Raca? raca = racaId != null ? await racaRepository.getById(racaId) : null;
+      final ClassePersonagem? classe = classeId != null ? await classeRepository.getById(classeId) : null;
 
-      // CORREÇÃO: A lógica de busca de habilidades e equipamentos foi centralizada.
-      final habilidades = await _habilidadeRepository.getAllForCombatente(id);
-      final equipamentos = await _getEquipamentosForCombatente(db, id);
+      if (raca == null) {
+        print('Character ${map['nome']} (ID: $id) has missing Race (ID: $racaId). Cannot fully retrieve.');
+        return null;
+      }
+      if (classe == null) {
+        print('Character ${map['nome']} (ID: $id) has missing Class (ID: $classeId). Cannot fully retrieve.');
+        return null;
+      }
 
-      return _mapToPersonagem(
-        personagemMap,
-        habilidades: habilidades,
-        equipamentos: equipamentos,
+      Arma? arma;
+      if (armaId != null) {
+        arma = await armaRepository.getById(armaId);
+      }
+
+      Armadura? armadura;
+      if (armaduraId != null) {
+        armadura = await armaduraRepository.getArmaduraById(armaduraId);
+      }
+
+      final habilidadesData = await habilidadeRepository.getAllForCombatente(map['id'] as String);
+      final List<Habilidade> habilidadesConhecidas = habilidadesData['known'] ?? [];
+      final List<Habilidade> habilidadesPreparadas = habilidadesData['prepared'] ?? [];
+
+      return Personagem(
+        id: map['id'] as String,
+        nome: map['nome'] as String,
+        nivel: map['nivel'] as int,
+        vidaMax: map['vidaMax'] as int,
+        classeArmadura: map['classeArmadura'] as int,
+        raca: raca,
+        classe: classe,
+        atributosBase: AtributosBase(
+          forca: map['forca'] as int,
+          destreza: map['destreza'] as int,
+          constituicao: map['constituicao'] as int,
+          inteligencia: map['inteligencia'] as int,
+          sabedoria: map['sabedoria'] as int,
+          carisma: map['carisma'] as int,
+        ),
+        arma: arma,
+        armadura: armadura,
+        habilidadesConhecidas: habilidadesConhecidas,
+        habilidadesPreparadas: habilidadesPreparadas,
+        equipamentos: {},
       );
-    } catch (e) {
-      throw DatasourceException(
-          message: 'Falha ao buscar personagem por ID.',
-          originalException: e);
     }
+    return null;
   }
 
   @override
-  Future<List<Personagem>> getAll() async {
-    try {
-      final db = await _dbHelper.database;
-      final List<Map<String, dynamic>> maps = await db.query('personagens');
+  Future<void> save(Personagem personagem) async {
+    final db = await dbHelper.database;
+    // Save abilities and equipment links before saving the main character
+    await _saveCombatenteHabilidades(db, personagem.id, personagem.habilidadesConhecidas, 'known');
+    await _saveCombatenteHabilidades(db, personagem.id, personagem.habilidadesPreparadas, 'prepared');
+    await _saveCombatenteEquipamentos(db, personagem.id, personagem.arma, personagem.armadura);
 
-      final List<Personagem> personagens = [];
-      for (final map in maps) {
-        final personagem = await getById(map['id']);
-        if (personagem != null) {
-          personagens.add(personagem);
-        }
-      }
-      return personagens;
-    } catch (e) {
-      throw DatasourceException(
-        message: 'Falha ao buscar todos os personagens.',
-        originalException: e,
+    await db.insert(
+      'personagens',
+      {
+        'id': personagem.id,
+        'nome': personagem.nome,
+        'nivel': personagem.nivel,
+        'vidaMax': personagem.vidaMax,
+        'classeArmadura': personagem.classeArmadura,
+        'racaId': personagem.raca.id,
+        'classeId': personagem.classe.id,
+        'forca': personagem.atributosBase.forca,
+        'destreza': personagem.atributosBase.destreza,
+        'constituicao': personagem.atributosBase.constituicao,
+        'inteligencia': personagem.atributosBase.inteligencia,
+        'sabedoria': personagem.atributosBase.sabedoria,
+        'carisma': personagem.atributosBase.carisma,
+        'armaId': personagem.arma?.id,
+        'armaduraId': personagem.armadura?.id,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> _saveCombatenteHabilidades(
+      Database db, String combatenteId, List<Habilidade> habilidades, String type) async {
+    await db.delete(
+      'combatente_habilidades',
+      where: 'combatenteId = ? AND tipo = ?',
+      whereArgs: [combatenteId, type],
+    );
+    for (var h in habilidades) {
+      await db.insert(
+        'combatente_habilidades',
+        {
+          'combatenteId': combatenteId,
+          'habilidadeId': h.id,
+          'tipo': type,
+        },
+      );
+    }
+  }
+
+  Future<void> _saveCombatenteEquipamentos(
+      Database db, String combatenteId, Arma? arma, Armadura? armadura) async {
+    await db.delete(
+      'combatente_equipamentos',
+      where: 'combatenteId = ?',
+      whereArgs: [combatenteId],
+    );
+
+    if (arma != null) {
+      await db.insert(
+        'combatente_equipamentos',
+        {'combatenteId': combatenteId, 'itemId': arma.id, 'slot': 'arma'},
+      );
+    }
+    if (armadura != null) {
+      await db.insert(
+        'combatente_equipamentos',
+        {'combatenteId': combatenteId, 'itemId': armadura.id, 'slot': 'armadura'},
       );
     }
   }
 
   @override
   Future<void> delete(String id) async {
-    try {
-      final db = await _dbHelper.database;
-      await db.delete('personagens', where: 'id = ?', whereArgs: [id]);
-    } catch (e) {
-      throw DatasourceException(
-        message: 'Falha ao deletar o personagem.',
-        originalException: e,
-      );
-    }
-  }
-
-  // CORREÇÃO: O método _getHabilidadesForCombatente foi REMOVIDO deste arquivo.
-  // A responsabilidade agora é do HabilidadeRepository.
-
-  Future<Map<String, Arma>> _getEquipamentosForCombatente(
-    DatabaseExecutor db,
-    String combatenteId,
-  ) async {
-    const String sql = '''
-      SELECT a.*, ce.slot FROM armas a
-      JOIN combatente_equipamentos ce ON a.id = ce.armaId
-      WHERE ce.combatenteId = ?
-    ''';
-    final maps = await db.rawQuery(sql, [combatenteId]);
-
-    final Map<String, Arma> equipamentos = {};
-    for (final map in maps) {
-      equipamentos[map['slot'] as String] = ArmaModel.fromMap(map);
-    }
-    return equipamentos;
-  }
-
-  Personagem _mapToPersonagem(
-    Map<String, dynamic> map, {
-    required Map<String, List<Habilidade>> habilidades,
-    required Map<String, Arma> equipamentos,
-  }) {
-    final raca = RacaModel.fromMap({
-      'id': map['racaId'],
-      'nome': map['racaNome'],
-      'modificadoresDeAtributo': map['modificadoresDeAtributo'],
-    });
-
-    final classe = ClassePersonagemModel.fromMap({
-      'id': map['classeId'],
-      'nome': map['classeNome'],
-      'proficienciaArmadura': map['classeProficienciaArmadura'],
-      'proficienciaArma': map['classeProficienciaArma'],
-    });
-
-    final arma = map['armaId'] != null
-        ? ArmaModel(
-            id: map['armaId'],
-            nome: map['armaNome'],
-            danoBase: map['armaDanoBase'],
-          )
-        : null;
-    final armadura = map['armaduraId'] != null
-        ? ArmaModel(
-            id: map['armaduraId'],
-            nome: map['armaduraNome'],
-            danoBase: map['armaduraDanoBase'],
-          )
-        : null;
-
-    return PersonagemModel.fromMap(
-      map,
-      raca: raca,
-      classe: classe,
-      arma: arma,
-      armadura: armadura,
-      habilidadesConhecidas: habilidades['conhecidas'] ?? [],
-      habilidadesPreparadas: habilidades['preparadas'] ?? [],
-      equipamentos: equipamentos,
+    final db = await dbHelper.database;
+    await db.delete(
+      'personagens',
+      where: 'id = ?',
+      whereArgs: [id],
     );
+    await db.delete('combatente_habilidades', where: 'combatenteId = ?', whereArgs: [id]);
+    await db.delete('combatente_equipamentos', where: 'combatenteId = ?', whereArgs: [id]);
   }
 }

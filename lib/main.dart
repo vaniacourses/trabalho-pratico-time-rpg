@@ -320,7 +320,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _mainTabController = TabController(length: 3, vsync: this);
+    _mainTabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -340,6 +340,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
             Tab(icon: Icon(Icons.person), text: 'Characters'),
             Tab(icon: Icon(Icons.castle), text: 'Groups'),
             Tab(icon: Icon(Icons.auto_stories), text: 'Codex'),
+            Tab(icon: Icon(Icons.auto_stories), text: 'Batalha'),
           ],
         ),
       ),
@@ -349,6 +350,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           FichasTabPage(mainTabController: _mainTabController),
           GerenciarGruposPage(),
           const GerenciamentoGeralPage(),
+          BatalhaTabPage()
         ],
       ),
     );
@@ -482,6 +484,42 @@ class GerenciamentoGeralPage extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+  }
+}
+
+
+
+class BatalhaTabPage extends StatelessWidget {
+  const BatalhaTabPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(12.0),
+      children: [
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.group),
+            title: const Text('Selecionar Grupo de Personagens'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GerenciarRacasPage()),
+            ),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.group),
+            title: const Text('Selecionar Grupo de Inimigos'),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GerenciarClassesPage()),
+            ),
+          ),
+        ),
+
       ],
     );
   }

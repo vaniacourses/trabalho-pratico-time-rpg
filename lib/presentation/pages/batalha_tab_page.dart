@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trabalho_rpg/presentation/providers/grupos_view_model.dart';
+import 'package:trabalho_rpg/presentation/pages/simulador_batalha_page.dart';
+import 'package:trabalho_rpg/data/models/grupo_model.dart';
+import 'package:trabalho_rpg/domain/entities/personagem.dart';
+import 'package:trabalho_rpg/domain/entities/inimigo.dart';
+
 
 class BatalhaTabPage extends StatefulWidget {
   const BatalhaTabPage({super.key});
@@ -10,14 +15,12 @@ class BatalhaTabPage extends StatefulWidget {
 }
 
 class _BatalhaTabPageState extends State<BatalhaTabPage> {
-  // Variáveis para armazenar os valores selecionados nos dropdowns
-  String? _selectedCharacterGroup;
-  String? _selectedEnemyGroup;
+  GrupoModel<Personagem>? _selectedCharacterGroup;
+  GrupoModel<Inimigo>? _selectedEnemyGroup;
 
   @override
   void initState() {
     super.initState();
-    // Inicia a busca pelos grupos assim que a tela é construída
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<GruposViewModel>(context, listen: false).fetchTodosOsGrupos();
     });
@@ -25,92 +28,116 @@ class _BatalhaTabPageState extends State<BatalhaTabPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Usa um Consumer para ouvir as mudanças no GruposViewModel
     return Consumer<GruposViewModel>(
       builder: (context, viewModel, child) {
-        // Exibe um indicador de progresso enquanto os dados estão sendo carregados
         if (viewModel.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        // Exibe uma mensagem de erro se a busca falhar
         if (viewModel.error != null) {
           return Center(child: Text('Erro ao carregar os grupos: ${viewModel.error}'));
         }
 
-        // Transforma a lista de objetos Grupo em uma lista de Strings (nomes)
-        final characterGroups = viewModel.gruposDePersonagens.map((g) => g.nome).toList();
-        final enemyGroups = viewModel.gruposDeInimigos.map((g) => g.nome).toList();
+        final List<GrupoModel<Personagem>> characterGroups = viewModel.gruposDePersonagens;
+        final List<GrupoModel<Inimigo>> enemyGroups = viewModel.gruposDeInimigos;
 
-        // Garante que o valor selecionado ainda exista na lista após o carregamento
-        // Isso evita erros se um grupo selecionado for deletado
-        if (_selectedCharacterGroup != null && !characterGroups.contains(_selectedCharacterGroup)) {
+        if (_selectedCharacterGroup != null && !characterGroups.any((g) => g.id == _selectedCharacterGroup!.id)) {
           _selectedCharacterGroup = null;
         }
-        if (_selectedEnemyGroup != null && !enemyGroups.contains(_selectedEnemyGroup)) {
+        if (_selectedEnemyGroup != null && !enemyGroups.any((g) => g.id == _selectedEnemyGroup!.id)) {
           _selectedEnemyGroup = null;
         }
 
-        return ListView(
-          padding: const EdgeInsets.all(16.0),
-          children: [
-            // Dropdown para selecionar o grupo de personagens
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(
-                    labelText: 'Grupo de Personagens',
-                    prefixIcon: Icon(Icons.group),
-                    border: InputBorder.none,
-                  ),
-                  value: _selectedCharacterGroup,
-                  hint: const Text('Selecione um grupo'),
-                  // Popula o dropdown com a lista de nomes dos grupos de personagens
-                  items: characterGroups.map((String group) {
-                    return DropdownMenuItem<String>(
-                      value: group,
-                      child: Text(group),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedCharacterGroup = newValue;
-                    });
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
+        return Scaffold(
+          body: ListView(
+            padding: const EdgeInsets.all(16.0),
+            children: [
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: DropdownButtonFormField<String>( 
+                    decoration: const InputDecoration(
+                      labelText: 'Grupo de Personagens',
+                      prefixIcon: Icon(Icons.group),
+                      border: InputBorder.none,
+                    ),
 
-            // Dropdown para selecionar o grupo de inimigos
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(
-                    labelText: 'Grupo de Inimigos',
-                    prefixIcon: Icon(Icons.group_work),
-                    border: InputBorder.none,
+                    value: _selectedCharacterGroup?.id, 
+                    hint: const Text('Selecione um grupo'),
+                    items: characterGroups.map((GrupoModel<Personagem> group) {
+                      return DropdownMenuItem<String>(
+                        value: group.id, 
+                        child: Text(group.nome), 
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedGroupId) {
+                      setState(() {
+                        _selectedCharacterGroup = characterGroups.firstWhere(
+                          (g) => g.id == selectedGroupId,
+                        );
+                      });
+                    },
                   ),
-                  value: _selectedEnemyGroup,
-                  hint: const Text('Selecione os inimigos'),
-                  // Popula o dropdown com a lista de nomes dos grupos de inimigos
-                  items: enemyGroups.map((String group) {
-                    return DropdownMenuItem<String>(
-                      value: group,
-                      child: Text(group),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedEnemyGroup = newValue;
-                    });
-                  },
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 12),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: DropdownButtonFormField<String>( 
+                    decoration: const InputDecoration(
+                      labelText: 'Grupo de Inimigos',
+                      prefixIcon: Icon(Icons.group_work),
+                      border: InputBorder.none,
+                    ),
+                    value: _selectedEnemyGroup?.id,
+                    hint: const Text('Selecione os inimigos'),
+                    items: enemyGroups.map((GrupoModel<Inimigo> group) {
+                      return DropdownMenuItem<String>(
+                        value: group.id,
+                        child: Text(group.nome), 
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedGroupId) {
+                      setState(() {
+                        _selectedEnemyGroup = enemyGroups.firstWhere(
+                          (g) => g.id == selectedGroupId,
+                        );
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            heroTag: 'batalha_fab',
+            child: const Icon(Icons.add_box),
+            onPressed: () {
+              // Adiciona uma validação antes de navegar
+              if (_selectedCharacterGroup == null || _selectedEnemyGroup == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Por favor, selecione ambos os grupos para iniciar a batalha.'),
+                  ),
+                );
+                return; // Impede a navegação
+              }
+
+              // Navega para a SimuladorBatalhaPage passando os grupos selecionados
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SimuladorBatalhaPage(
+                    // Agora passamos os objetos GrupoModel diretamente
+                    grupoPersonagens: _selectedCharacterGroup!,
+                    grupoInimigos: _selectedEnemyGroup!,
+                  ),
+                ),
+              );
+              print('Botão flutuante da BatalhaTabPage pressionado! Grupos: ${_selectedCharacterGroup?.nome}, ${_selectedEnemyGroup?.nome}');
+            },
+          ),
         );
       },
     );

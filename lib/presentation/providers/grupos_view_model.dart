@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
-import 'package:trabalho_rpg/domain/entities/grupo.dart';
+import 'package:trabalho_rpg/domain/entities/grupo.dart'; // Mantemos Grupo para tipos base
 import 'package:trabalho_rpg/domain/entities/inimigo.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
 import 'package:trabalho_rpg/domain/repositories/i_grupo_repository.dart';
 import 'package:uuid/uuid.dart';
+
+// Importe o GrupoModel para usar o tipo específico
+import 'package:trabalho_rpg/data/models/grupo_model.dart'; // <-- Ajuste este caminho se necessário!
 
 class GruposViewModel extends ChangeNotifier {
   final IGrupoRepository<Personagem> _grupoPersonagemRepository;
@@ -24,11 +27,12 @@ class GruposViewModel extends ChangeNotifier {
   String? _error;
   String? get error => _error;
 
-  List<Grupo<Personagem>> _gruposDePersonagens = [];
-  List<Grupo<Personagem>> get gruposDePersonagens => _gruposDePersonagens;
+  // <--- CORREÇÃO AQUI: Alteramos o tipo das listas internas e dos getters para GrupoModel
+  List<GrupoModel<Personagem>> _gruposDePersonagens = [];
+  List<GrupoModel<Personagem>> get gruposDePersonagens => _gruposDePersonagens;
 
-  List<Grupo<Inimigo>> _gruposDeInimigos = [];
-  List<Grupo<Inimigo>> get gruposDeInimigos => _gruposDeInimigos;
+  List<GrupoModel<Inimigo>> _gruposDeInimigos = [];
+  List<GrupoModel<Inimigo>> get gruposDeInimigos => _gruposDeInimigos;
 
   Future<void> fetchTodosOsGrupos() async {
     _isLoading = true;
@@ -39,8 +43,14 @@ class GruposViewModel extends ChangeNotifier {
         _grupoPersonagemRepository.getAll(),
         _grupoInimigoRepository.getAll(),
       ]);
-      _gruposDePersonagens = results[0] as List<Grupo<Personagem>>;
-      _gruposDeInimigos = results[1] as List<Grupo<Inimigo>>;
+
+      // <--- CORREÇÃO AQUI: Cast explícito na atribuição
+      // Assumimos que getAll() retorna GruposModel, mas como o retorno é List<Grupo<T>>,
+      // precisamos do cast para atribuir à lista de GruposModel.
+      _gruposDePersonagens = (results[0] as List<Grupo<Personagem>>)
+          .cast<GrupoModel<Personagem>>();
+      _gruposDeInimigos = (results[1] as List<Grupo<Inimigo>>)
+          .cast<GrupoModel<Inimigo>>();
     } catch (e) {
       _error = "Falha ao buscar grupos: ${e.toString()}";
     } finally {
@@ -54,7 +64,8 @@ class GruposViewModel extends ChangeNotifier {
     required String nome,
     required List<Personagem> membros,
   }) async {
-    final grupo = Grupo<Personagem>(
+    // <--- CORREÇÃO AQUI: Instanciamos GrupoModel em vez de Grupo
+    final grupo = GrupoModel<Personagem>(
       id: id ?? _uuid.v4(),
       nome: nome,
       membros: membros,
@@ -68,7 +79,7 @@ class GruposViewModel extends ChangeNotifier {
     required String nome,
     required List<Inimigo> membros,
   }) async {
-    final grupo = Grupo<Inimigo>(
+    final grupo = GrupoModel<Inimigo>(
       id: id ?? _uuid.v4(),
       nome: nome,
       membros: membros,
@@ -81,10 +92,14 @@ class GruposViewModel extends ChangeNotifier {
     // Tentamos deletar dos dois repositórios; um deles funcionará.
     try {
       await _grupoPersonagemRepository.delete(id);
-    } catch (_) {}
+    } catch (_) {
+      // Ignorar erro se o grupo não for encontrado em um repositório
+    }
     try {
       await _grupoInimigoRepository.delete(id);
-    } catch (_) {}
+    } catch (_) {
+      // Ignorar erro se o grupo não for encontrado em outro repositório
+    }
     await fetchTodosOsGrupos();
   }
 }

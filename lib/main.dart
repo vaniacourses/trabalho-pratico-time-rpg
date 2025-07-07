@@ -491,27 +491,3 @@ class GerenciamentoGeralPage extends StatelessWidget {
 }
 
 
-
-// Essas são páginas de exemplo que você pode ter em seu projeto.
-// Elas não são mais chamadas diretamente pelos botões.
-class GerenciarRacasPage extends StatelessWidget {
-  const GerenciarRacasPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Gerenciar Raças')),
-      body: const Center(child: Text('Página de Gerenciar Raças')),
-    );
-  }
-}
-
-class GerenciarClassesPage extends StatelessWidget {
-  const GerenciarClassesPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Gerenciar Classes')),
-      body: const Center(child: Text('Página de Gerenciar Classes')),
-    );
-  }
-}

@@ -43,6 +43,7 @@ import 'package:trabalho_rpg/presentation/providers/inimigos_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/personagens_view_model.dart';
 import 'package:trabalho_rpg/presentation/providers/racas_view_model.dart';
 import 'package:uuid/uuid.dart';
+import 'package:trabalho_rpg/presentation/pages/batalha_tab_page.dart';
 
 void main() async {
   sqfliteFfiInit();
@@ -320,7 +321,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _mainTabController = TabController(length: 3, vsync: this);
+    _mainTabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -340,6 +341,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
             Tab(icon: Icon(Icons.person), text: 'Characters'),
             Tab(icon: Icon(Icons.castle), text: 'Groups'),
             Tab(icon: Icon(Icons.auto_stories), text: 'Codex'),
+            Tab(icon: Icon(Icons.auto_stories), text: 'Batalha'),
           ],
         ),
       ),
@@ -349,6 +351,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           FichasTabPage(mainTabController: _mainTabController),
           GerenciarGruposPage(),
           const GerenciamentoGeralPage(),
+          BatalhaTabPage()
         ],
       ),
     );
@@ -486,3 +489,5 @@ class GerenciamentoGeralPage extends StatelessWidget {
     );
   }
 }
+
+

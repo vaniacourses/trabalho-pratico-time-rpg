@@ -114,22 +114,19 @@ class _BatalhaTabPageState extends State<BatalhaTabPage> {
             heroTag: 'batalha_fab',
             child: const Icon(Icons.add_box),
             onPressed: () {
-              // Adiciona uma validação antes de navegar
               if (_selectedCharacterGroup == null || _selectedEnemyGroup == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Por favor, selecione ambos os grupos para iniciar a batalha.'),
                   ),
                 );
-                return; // Impede a navegação
+                return; 
               }
 
-              // Navega para a SimuladorBatalhaPage passando os grupos selecionados
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (_) => SimuladorBatalhaPage(
-                    // Agora passamos os objetos GrupoModel diretamente
                     grupoPersonagens: _selectedCharacterGroup!,
                     grupoInimigos: _selectedEnemyGroup!,
                   ),

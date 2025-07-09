@@ -4,6 +4,7 @@ import 'package:trabalho_rpg/domain/entities/grupo.dart';
 import 'package:trabalho_rpg/domain/entities/inimigo.dart';
 import 'package:trabalho_rpg/domain/entities/personagem.dart';
 import 'package:trabalho_rpg/data/models/grupo_model.dart';
+import 'package:trabalho_rpg/domain/entities/habilidade.dart';
 
 enum SelectionMode {
   none,
@@ -66,6 +67,37 @@ class _SimuladorBatalhaPageState extends State<SimuladorBatalhaPage> {
       }
     });
   }
+
+  void _usarHabilidade(Habilidade habilidade) {
+    if (_selectedAttacker == null || _selectedTarget == null) {
+      _addToLog('Selecione um atacante e um alvo antes de usar uma habilidade.');
+      return;
+    }
+
+    if (_selectedAttacker!.nivel < habilidade.nivelExigido) {
+      _addToLog('${_selectedAttacker!.nome} não tem nível suficiente para usar ${habilidade.nome}.');
+      return;
+    }
+
+    habilidade.execute(autor: _selectedAttacker!, alvo: _selectedTarget!);
+
+    _addToLog('${_selectedAttacker!.nome} usou a habilidade "${habilidade.nome}" em ${_selectedTarget!.nome}!');
+
+    if (_selectedTarget is Combatente && (_selectedTarget! as Combatente).vidaAtual <= 0) {
+      _addToLog('${_selectedTarget!.nome} foi derrotado!');
+
+      setState(() {
+        if (widget.grupoPersonagens.membros.contains(_selectedTarget)) {
+          widget.grupoPersonagens.membros.remove(_selectedTarget);
+        } else if (widget.grupoInimigos.membros.contains(_selectedTarget)) {
+          widget.grupoInimigos.membros.remove(_selectedTarget);
+        }
+      });
+    }
+
+    _resetSelection();
+  }
+
 
   void _performAttack() {
     if (_selectedAttacker == null || _selectedTarget == null) {
@@ -295,13 +327,46 @@ class _SimuladorBatalhaPageState extends State<SimuladorBatalhaPage> {
                   ),
                 ),
                 ElevatedButton.icon(
-                  onPressed: _performAttack,
-                  icon: const Icon(Icons.auto_awesome),
-                  label: const Text('Habilidade', style: TextStyle(fontSize: 16)),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+  onPressed: () {
+    if (_selectedAttacker == null || _selectedTarget == null) {
+      _addToLog('Selecione um atacante e um alvo primeiro.');
+      return;
+    }
+
+    if (_selectedAttacker!.habilidadesPreparadas.isEmpty) {
+      _addToLog('${_selectedAttacker!.nome} não tem habilidades preparadas.');
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Escolha uma habilidade'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: _selectedAttacker!.habilidadesPreparadas.map((habilidade) {
+              return ListTile(
+                title: Text(habilidade.nome),
+                subtitle: Text(habilidade.descricao),
+                trailing: Text('Nv ${habilidade.nivelExigido}'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _usarHabilidade(habilidade);
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.auto_awesome),
+                    label: const Text('Habilidade', style: TextStyle(fontSize: 16)),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    ),
                   ),
-                ),
               ],
             ),
           ),

@@ -50,4 +50,5 @@ abstract class Combatente implements AlvoDeAcao {
     }
     print('>> Vida atual de ${nome}: $vidaAtual');
   }
+  
 }

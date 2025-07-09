@@ -81,11 +81,6 @@ class _SimuladorBatalhaPageState extends State<SimuladorBatalhaPage> {
     final bool attackerIsCharacter = widget.grupoPersonagens.membros.contains(_selectedAttacker);
     final bool targetIsCharacter = widget.grupoPersonagens.membros.contains(_selectedTarget);
 
-    // if (attackerIsCharacter == targetIsCharacter) {
-    //   _addToLog('Ataque não permitido');
-    //   return;
-    // }
-
     final attacker = _selectedAttacker!;
     final target = _selectedTarget!;
 
@@ -97,9 +92,17 @@ class _SimuladorBatalhaPageState extends State<SimuladorBatalhaPage> {
     _addToLog('${target.nome} agora tem ${target.vidaAtual}/${target.vidaMax} HP.');
 
     if (target.vidaAtual <= 0) {
-      _addToLog('${target.nome} foi derrotado!'); // tem que tentar tirar o personagem de exbição depois que morrer
-    }
+    _addToLog('${target.nome} foi derrotado!');
 
+    // Remove o combatente derrotado do grupo correspondente
+    setState(() {
+      if (widget.grupoPersonagens.membros.contains(target)) {
+        widget.grupoPersonagens.membros.remove(target);
+      } else if (widget.grupoInimigos.membros.contains(target)) {
+        widget.grupoInimigos.membros.remove(target);
+      }
+    });
+  }
     _resetSelection();
   }
 

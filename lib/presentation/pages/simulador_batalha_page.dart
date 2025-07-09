@@ -85,7 +85,7 @@ class _SimuladorBatalhaPageState extends State<SimuladorBatalhaPage> {
     final target = _selectedTarget!;
 
 
-    final damage = 10; // tentar pegar o dano do banco de dados 
+    final damage = attacker.calcularDanoContra(target);
     target.receberDano(damage);
 
     _addToLog('${attacker.nome} atacou ${target.nome} e causou $damage de dano!');

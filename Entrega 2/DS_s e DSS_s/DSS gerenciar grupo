@@ -1,0 +1,136 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 OPR/119.0.0.0 (Edition std-2)" version="27.2.0">
+  <diagram name="Página-1" id="tyh1Gs9mAGzKu9NNld0J">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="9999" pageHeight="9999" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-134" value="Usuario" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;size=65;" vertex="1" parent="1">
+          <mxGeometry x="850" y="440" width="35" height="988" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-135" value="Sistema" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1244" y="440" width="150" height="988" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-136" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-135">
+          <mxGeometry x="70" y="153" width="10" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-137" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-135">
+          <mxGeometry x="70" y="303" width="10" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-138" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-135">
+          <mxGeometry x="70" y="407" width="10" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-139" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-135">
+          <mxGeometry x="70" y="557" width="10" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-140" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-135">
+          <mxGeometry x="70" y="661" width="10" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-141" value="" style="points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0}" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-135">
+          <mxGeometry x="70" y="821" width="10" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-142" value="alt" style="shape=umlFrame;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=#B3B3B3;height=20;width=30" vertex="1" parent="1">
+          <mxGeometry x="914" y="665" width="420" height="508" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-143" value="[Escolhe &quot;Grupo de Personagens&quot;]" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-142">
+          <mxGeometry x="30" width="390" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-144" value="[Escolhe &quot;Grupo de Inimigos&quot;]" style="shape=line;dashed=1;whiteSpace=wrap;verticalAlign=top;labelPosition=center;verticalLabelPosition=middle;align=center;strokeColor=#B3B3B3;" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-142">
+          <mxGeometry y="259" width="420" height="4" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-145" value="alt" style="shape=umlFrame;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=#B3B3B3;height=20;width=30" vertex="1" parent="1">
+          <mxGeometry x="904" y="515" width="440" height="818" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-146" value="[O Usuário decide Criar um Grupo]" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-145">
+          <mxGeometry x="30" width="410" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-147" value="[O Usuário decide Deletar um Grupo]" style="shape=line;dashed=1;whiteSpace=wrap;verticalAlign=top;labelPosition=center;verticalLabelPosition=middle;align=center;strokeColor=#B3B3B3;" vertex="1" parent="6pmIvF3N4iF0rqkfYGhe-145">
+          <mxGeometry y="673" width="440" height="4" as="geometry" />
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-148" value="solicitarCriacaoGrupo()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-134" target="6pmIvF3N4iF0rqkfYGhe-136">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1131" y="593" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-149" value="apresentarOpcoesTipoGrupo()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-136" target="6pmIvF3N4iF0rqkfYGhe-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1132" y="645" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-150" value="escolherGrupoDePersonagens()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-134" target="6pmIvF3N4iF0rqkfYGhe-137">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1131" y="743" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-151" value="apresentarFormularioComPersonagens()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-137" target="6pmIvF3N4iF0rqkfYGhe-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1132" y="795" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-152" value="submeterDadosGrupoPersonagens(nome, ids)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-134" target="6pmIvF3N4iF0rqkfYGhe-138">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1131" y="847" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-153" value="grupoCriadoComSucesso()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-138" target="6pmIvF3N4iF0rqkfYGhe-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1132" y="899" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-154" value="escolherGrupoDeInimigos()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-134" target="6pmIvF3N4iF0rqkfYGhe-139">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1131" y="997" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-155" value="apresentarFormularioComInimigos()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-139" target="6pmIvF3N4iF0rqkfYGhe-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1132" y="1049" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-156" value="submeterDadosGrupoInimigos(nome, ids)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-134" target="6pmIvF3N4iF0rqkfYGhe-140">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1131" y="1101" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-157" value="grupoCriadoComSucesso()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-140" target="6pmIvF3N4iF0rqkfYGhe-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1132" y="1153" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-158" value="solicitarExclusaoGrupo(id)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-134" target="6pmIvF3N4iF0rqkfYGhe-141">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1131" y="1261" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6pmIvF3N4iF0rqkfYGhe-159" value="grupoExcluidoComSucesso()" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="6pmIvF3N4iF0rqkfYGhe-141" target="6pmIvF3N4iF0rqkfYGhe-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1132" y="1313" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
